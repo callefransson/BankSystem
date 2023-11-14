@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    internal class User
+    internal class User : Person
     {
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
         "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
         "[6]Show all transactions\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
 
-        public int Id { get; set; } // properti ))
         public decimal Balance { get; set; }
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
