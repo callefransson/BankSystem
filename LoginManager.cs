@@ -11,11 +11,12 @@ namespace BankSystem
         private List<Person> _users;
         public LoginManager()
         {
-            _users = new List<Person>();
-
-            _users.Add(new Person("admin", "123"));
-            _users.Add(new Person("bankowner", "123"));
-            _users.Add(new Person("user", "123"));
+            _users = new List<Person>
+            {
+                new Person("admin", "123"),
+                new Person("bankowner", "123"),
+                new Person("user", "123")
+            };
         }
 
         public bool Login(string username, string password)

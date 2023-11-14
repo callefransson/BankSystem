@@ -15,8 +15,11 @@ namespace BankSystem
 
         private int IdCounter = 0;
 
-        List<Person> accounts = new List<Person>();
-        public void AddUser()
+        public Administrator(string username, string password) : base(username, password)
+        {
+        }
+
+        public void AddUser(List<Person> accounts)
         {
             Console.Clear();
 
@@ -53,7 +56,7 @@ namespace BankSystem
 
             if (isCorrect && !string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(password))
             {
-                Person account = new Person()
+                Person account = new Person(userName,password)
                 {
                     Username = userName,
                     Password = password,
@@ -70,12 +73,12 @@ namespace BankSystem
             Console.WriteLine("Press any key to return to the menu");
             Console.ReadKey();
         }
-        public void RemoveUser()
+        public void RemoveUser(List<Person> accounts)
         {
             int adminPick;
 
             Console.WriteLine("Enter the id of witch user you would like to remove from the bank");
-            ShowAllUsers();
+            ShowAllUsers(accounts);
             //foreach(Person allAccounts in accounts)
             //{
             //    if(allAccounts == null)
@@ -106,7 +109,7 @@ namespace BankSystem
                     }
                 }
         }
-        public void ShowAllUsers()
+        public void ShowAllUsers(List<Person> accounts)
         {
             Console.WriteLine("Show all users");
             foreach (Person allAccounts in accounts)
@@ -121,6 +124,20 @@ namespace BankSystem
                     Console.WriteLine("Id: {0} Username: {1} ", allAccounts.ID, allAccounts.Username);
                 }
             }
+        }
+        public void UpdateExchangeRate()
+        {
+
+        }
+        public override void PrintMenu()
+        {
+            Console.WriteLine(@"
+ █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗    ███╗   ███╗███████╗███╗   ██╗██╗   ██╗
+██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║    ████╗ ████║██╔════╝████╗  ██║██║   ██║
+███████║██║  ██║██╔████╔██║██║██╔██╗ ██║    ██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║
+██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║    ██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║
+██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║    ██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝
+╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ ");
         }
     }
 }
