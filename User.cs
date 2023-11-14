@@ -26,7 +26,7 @@ namespace BankSystem
         }
 
 
-        public void RunMenu()
+        public override void RunMenu()
         {
             while (true)
             {
@@ -40,7 +40,7 @@ namespace BankSystem
 
                 Console.WriteLine(); // Gap in coode
                 Console.ForegroundColor = ConsoleColor.Blue; // make text blue
-                Console.WriteLine("Make a choise with the arrow");
+                Console.WriteLine("Make a choice with the arrow");
                 Console.WriteLine("Press Up or Down on the keyboard");
                 Console.WriteLine("  then press Enter");
                 Console.ResetColor();

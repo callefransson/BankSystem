@@ -15,7 +15,7 @@ namespace BankSystem
         "[3]Show Administrators\t\t", "[4]End\t\t" };
         private int menuSelected = 0;
 
-        public void RunMenu()
+        public override void RunMenu()
         {
             while (true)
             {
@@ -28,7 +28,7 @@ namespace BankSystem
 
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Make a choise with the arrow");
+                Console.WriteLine("Make a choice with the arrow");
                 Console.WriteLine("Press Up or Down on the keyboard");
                 Console.WriteLine("  then press Enter");
                 Console.ResetColor();

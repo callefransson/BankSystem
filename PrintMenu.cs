@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    public  interface IPrintMenu
+    public interface IPrintMenu
     {
         void PrintMenu();
     }

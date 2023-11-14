@@ -20,5 +20,7 @@ namespace BankSystem
             Password = password;
             //UserRole = userRole;
         }
+
+        public virtual void RunMenu() { }
     }
 }
