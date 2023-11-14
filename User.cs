@@ -13,7 +13,6 @@ namespace BankSystem
         "[6]Show all transactions\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
 
-        public int Id { get; set; } // property
         public decimal Balance { get; set; }
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
@@ -176,6 +175,7 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("\n[Transfer to second account]");
             // Add your code for the fourth choice here
+            // Add withdraw and deposit 
             Console.ReadLine(); // Wait for user input
         }
 
@@ -184,6 +184,7 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("\n[Transfer to user");
             // Add your code for the fifth choice here
+
             Console.ReadLine(); // Wait for user input
         }
 
