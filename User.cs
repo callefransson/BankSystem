@@ -13,7 +13,7 @@ namespace BankSystem
         "[6]Show all transactions\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
 
-        public int Id { get; set; } // properti ))
+        public int Id { get; set; } // property
         public decimal Balance { get; set; }
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
