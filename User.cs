@@ -181,6 +181,7 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("\n[Transfer to second account]");
             // Add your code for the fourth choice here
+            // Add withdraw and deposit 
             Console.ReadLine(); // Wait for user input
         }
 
@@ -189,28 +190,7 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("\n[Transfer to user");
             // Add your code for the fifth choice here
-            Console.ReadLine(); // Wait for user input
-        }
-
-        private void WithDraw()
-        {
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Green;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n[Withdraw]");
-            Console.ResetColor();
-            // Add your code for the sixth choice here
-            Console.ReadLine(); // Wait for user input
-        }
-
-        private void Deposit()
-        {
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n[Deposit]");
-            Console.ResetColor();
-            // Add your code for the seventh choice here
+            // Add withdraw and deposit
             Console.ReadLine(); // Wait for user input
         }
 
