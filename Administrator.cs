@@ -18,8 +18,8 @@ namespace BankSystem
         public Administrator(string username, string password) : base(username, password)
         {
         }
-
-        public void AddUser(List<Person> accounts)
+        List<Person> accounts = new List<Person>();
+        public void AddUser()
         {
             Console.Clear();
 
@@ -73,12 +73,12 @@ namespace BankSystem
             Console.WriteLine("Press any key to return to the menu");
             Console.ReadKey();
         }
-        public void RemoveUser(List<Person> accounts)
+        public void RemoveUser()
         {
             int adminPick;
 
             Console.WriteLine("Enter the id of which user you would like to remove from the bank");
-            ShowAllUsers(accounts);
+            ShowAllUsers();
             //foreach(Person allAccounts in accounts)
             //{
             //    if(allAccounts == null)
@@ -109,7 +109,7 @@ namespace BankSystem
                     }
                 }
         }
-        public void ShowAllUsers(List<Person> accounts)
+        public void ShowAllUsers()
         {
             Console.WriteLine("Show all users");
             foreach (Person allAccounts in accounts)
@@ -138,6 +138,88 @@ namespace BankSystem
 █░██░██░▀▀░██░███░█▀░▀██░██▄░████░███░██░▀▀▀██░██▄░██▄▀▀▄█
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
  ");
+        }
+        private string[] menuOptions = {"[1]Open new account\t\t", "[2]Remove account\t\t",
+        "[3]Show all accounts\t\t", "[4]End\t\t" };
+        private int menuSelected = 0;
+        public override void RunMenu()
+        {
+
+            while (true)
+            {
+                Console.Clear();
+
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.White;
+                PrintMenu();
+                Console.ResetColor();
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Make a choice with the arrow");
+                Console.WriteLine("Press Up or Down on the keyboard");
+                Console.WriteLine("  then press Enter");
+                Console.ResetColor();
+                Console.WriteLine("\x1b[?25l");
+
+                for (int i = 0; i < menuOptions.Length; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    if (i == menuSelected)
+                    {
+                        Console.WriteLine(menuOptions[i] + "<--");
+                    }
+                    else
+                    {
+                        Console.WriteLine(menuOptions[i]);
+                    }
+                    Console.ResetColor();
+                }
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                PrintTeamTag();
+                Console.ResetColor();
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                ConsoleKey keyPressed = keyInfo.Key;
+
+                if (keyPressed == ConsoleKey.DownArrow && menuSelected + 1 != menuOptions.Length)
+                {
+                    menuSelected++;
+                }
+                else if (keyPressed == ConsoleKey.UpArrow && menuSelected != 0)
+                {
+                    menuSelected--;
+                }
+                else if (keyPressed == ConsoleKey.Enter)
+                {
+                    switch (menuSelected)
+                    {
+                        case 0:
+                            AddUser();
+                            break;
+                        case 1:
+                            RemoveUser();
+                            break;
+                        case 2:
+                            ShowAllUsers();
+                            break;
+                        default:
+                            Console.WriteLine("Pick any of the options");
+                            break;
+                    }
+
+                    Console.CursorVisible = true;
+
+                    break;
+                }
+            }
+        }
+        public void PrintTeamTag()
+        {
+            Console.WriteLine(@"
+ ^~^  ,                    \   /\      
+('Y') )                    )  ( ')
+/   \/  Team #1: CodeCats (  /  )
+(\|||/)                     \(__)|");
         }
     }
 }
