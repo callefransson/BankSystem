@@ -9,8 +9,8 @@ namespace BankSystem
     internal class User
     {
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
-        "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",  "[6]Withdraw\t\t",
-        "[7]Deposit\t\t", "[8]Show all transactions\t\t", "[9]End\t\t" };
+        "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
+        "[6]Show all transactions\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
 
         public int Id { get; set; } // properti ))
@@ -96,17 +96,12 @@ namespace BankSystem
                             TransferToUser();
                             break;
                         case 5:
-                            WithDraw();
-                            break;
-                        case 6:
-                            Deposit();
-                            break;
-                        case 7:
                             ShowAllTransactions();
                             break;
-                        case 8:
+                        case 6:
                             EndProgram();
                             break;
+           
                     }
 
                     // Reset console cursor visibility
@@ -190,7 +185,7 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("\n[Transfer to user");
             // Add your code for the fifth choice here
-            // Add withdraw and deposit
+
             Console.ReadLine(); // Wait for user input
         }
 
@@ -198,7 +193,7 @@ namespace BankSystem
         {
             Console.Clear();
             Console.WriteLine("\n[Showing all transactions]");
-            // Add your code for the eighth choice here ( a list)
+            // Add your code for the sixth choice here ( a list)
             Console.ReadLine(); // Wait for user input
         }
 
