@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    internal class User : Person
+
+    internal class User : Person, Loans
+
     {
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
         "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
