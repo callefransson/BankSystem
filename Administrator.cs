@@ -77,7 +77,7 @@ namespace BankSystem
         {
             int adminPick;
 
-            Console.WriteLine("Enter the id of witch user you would like to remove from the bank");
+            Console.WriteLine("Enter the id of which user you would like to remove from the bank");
             ShowAllUsers(accounts);
             //foreach(Person allAccounts in accounts)
             //{
