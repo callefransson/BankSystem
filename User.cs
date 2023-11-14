@@ -96,17 +96,12 @@ namespace BankSystem
                             TransferToUser();
                             break;
                         case 5:
-                            WithDraw();
-                            break;
-                        case 6:
-                            Deposit();
-                            break;
-                        case 7:
                             ShowAllTransactions();
                             break;
-                        case 8:
+                        case 6:
                             EndProgram();
                             break;
+           
                     }
 
                     // Reset console cursor visibility
@@ -192,33 +187,11 @@ namespace BankSystem
             Console.ReadLine(); // Wait for user input
         }
 
-        private void WithDraw()
-        {
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Green;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n[Withdraw]");
-            Console.ResetColor();
-            // Add your code for the sixth choice here
-            Console.ReadLine(); // Wait for user input
-        }
-
-        private void Deposit()
-        {
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\n[Deposit]");
-            Console.ResetColor();
-            // Add your code for the seventh choice here
-            Console.ReadLine(); // Wait for user input
-        }
-
         private void ShowAllTransactions()
         {
             Console.Clear();
             Console.WriteLine("\n[Showing all transactions]");
-            // Add your code for the eighth choice here ( a list)
+            // Add your code for the sixth choice here ( a list)
             Console.ReadLine(); // Wait for user input
         }
 
