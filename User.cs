@@ -33,6 +33,7 @@ namespace BankSystem
                 Console.Clear(); // Clear console for a cleaner display
 
                 // Display menu
+                Console.OutputEncoding = System.Text.Encoding.Unicode; //to se "special" symbols in console. specific : €
                 Console.BackgroundColor = ConsoleColor.Blue; //make usermenu text blue and white
                 Console.ForegroundColor = ConsoleColor.White;
                 PrintUserMenu();
@@ -285,15 +286,15 @@ namespace BankSystem
         {
             Console.WriteLine(@"
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-██░██░█░▄▄█░▄▄█░▄▄▀███░▄▀▄░█░▄▄█░▄▄▀█░██░
-██░██░█▄▄▀█░▄▄█░▀▀▄███░█▄█░█░▄▄█░██░█░▀▀░
-██▄▀▀▄█▄▄▄█▄▄▄█▄█▄▄███▄███▄█▄▄▄█▄██▄█▀▀▀▄
+█░██░█░▄▄█░▄▄█░▄▄▀███░▄▀▄░█░▄▄█░▄▄▀█░██░█
+█░██░█▄▄▀█░▄▄█░▀▀▄███░█░█░█░▄▄█░██░█░██░█
+█▄▀▀▄█▄▄▄█▄▄▄█▄█▄▄███░███░█▄▄▄█▄██▄██▄▄▄█
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀");
         }
         public void PrintTeamTag()
         {
             Console.WriteLine(@"
-  ^~^  ,                   \    /\      
+ ^~^  ,                   \    /\      
 ('Y') )                    )  ( ')
 /   \/  Team #1: CodeCats (  /  )
 (\|||/)                     \(__)|");
