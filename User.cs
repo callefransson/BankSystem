@@ -36,7 +36,7 @@ namespace BankSystem
                 Console.OutputEncoding = System.Text.Encoding.Unicode; //to se "special" symbols in console. specific : €
                 Console.BackgroundColor = ConsoleColor.Blue; //make usermenu text blue and white
                 Console.ForegroundColor = ConsoleColor.White;
-                PrintUserMenu();
+                PrintMenu();
                 Console.ResetColor(); // reset color to normal
 
                 Console.WriteLine(); // Gap in coode
@@ -244,9 +244,70 @@ namespace BankSystem
         private void OpenNewBankAccount()
         {
             Console.Clear();
+            // main menu for Open new bank account
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n[Open new account]");
-            // Add your code for the third choice here
-            Console.ReadLine(); // Wait for user input
+            Console.ResetColor();
+            // Add your code for the OpenNewBankAccount here
+            Console.WriteLine("type [1] to open a savings account \nType [2] to open other account");
+            int userInput = int.Parse(Console.ReadLine()); // userinput to select 1 or 2
+
+            if (userInput == 1) // if user type 1 and enter : 
+            {
+                // main menu for Saving account
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("       [Savings Account]");
+                Console.ResetColor(); // reset color to normal
+                Console.Clear();
+                Console.WriteLine("           Welcome! \nWe have a yearly 1% savings interest rate");
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                User b1 = new User("Peter", "********", "User", 101);
+                {
+                    b1.Username = "Peter";  // usernamne is Peter
+                    b1.BankAccount = "Savings account"; // userinput for account name
+                };
+                Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
+                Console.ResetColor();
+                Console.WriteLine("");
+                Console.Write(" How much do you want to Deposit in €?  ");
+
+                double userInput1 = double.Parse(Console.ReadLine()); // userinput to deposit Euro
+                double yInterest = userInput1 * 0.01; // mathematic for 1% yearly rate of deposit 
+                Console.WriteLine("");
+                Console.WriteLine("*************Savings account info***************");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine(userInput1 + "€ has been deposit to your savings account");
+                Console.WriteLine();
+                Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
+                Console.ResetColor();
+                Console.WriteLine("________________________________________________");
+            }
+            else if (userInput == 2) // if user type 2 and enter:
+            {
+                User b1 = new User("Peter", "********", "User", 101);
+                {
+                    b1.Username = "Peter";  // usernamne is Peter
+                    Console.WriteLine("");
+                    Console.Write("Write the name of the new bank account: ");
+                    b1.BankAccount = Console.ReadLine(); // userinput for account name
+                };
+
+                // create a dictonary string "Peter" and class User.
+                Dictionary<string, User> createAccount = new Dictionary<string, User>();
+                createAccount.Add(b1.Username, b1); // strnig + class
+
+                Console.WriteLine("");
+                Console.WriteLine("***** Bank Account info *****");  // output for created acccount
+                User newAccount = createAccount["Peter"];
+                Console.WriteLine("{0} ID: {1} \n New bank Account = {2} \n",
+                newAccount.Username, newAccount.ID, newAccount.BankAccount);
+                Console.WriteLine(createAccount.Count() + " new account has been created \nThe currency = € //bank support"); // output + count method
+                Console.WriteLine("------------------------------");
+                Console.ReadLine(); // Wait for user input
+            }
         }
 
         private void TransferToSecondAccount()
@@ -282,7 +343,7 @@ namespace BankSystem
             // end the program here
         }
 
-        public void PrintUserMenu()
+        public void PrintMenu()
         {
             Console.WriteLine(@"
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
