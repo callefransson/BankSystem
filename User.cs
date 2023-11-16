@@ -20,7 +20,7 @@ namespace BankSystem
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
 
-        public User(string userRole, double personalNumber) : base(userRole, personalNumber)
+        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id)
         {
 
         }
