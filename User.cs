@@ -26,7 +26,7 @@ namespace BankSystem
         }
 
 
-        public override void RunMenu()
+        public void RunMenu()
         {
             while (true)
             {
@@ -49,7 +49,7 @@ namespace BankSystem
                 // Display menu options with arrow pointing to the selected option
                 for (int i = 0; i < menuOptions.Length; i++) // make a loop for the arrow 
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray; //make menu + arrow Dark Gray
+                    Console.ForegroundColor = ConsoleColor.Magenta; //made menu + arrow color Magenta
                     if (i == menuSelected)
                     {
                         Console.WriteLine(menuOptions[i] + "<--"); // display how the arrow will look like
@@ -115,45 +115,120 @@ namespace BankSystem
             }
         }
 
-        private void ShowBankAccounts()
+        public void ShowBankAccounts() // method #1, an overview of all the bank accounts
         {
+            // "main" Menu in Bank aaccounts
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\n[Overwiev of bank accounts]");
+            Console.WriteLine("\n[Overview of bank accounts]");
             Console.ResetColor();
-            // Add your code for the first choice here
-            User userOne = new User("User", 8905281111)
+            // Add your code for the method here:
+
+            // code for creating user accounts and balance
+            User b1 = new User("Peter", "***", "User", 101)
             {
-                BankAccount = "Account",
+                BankAccount = "Main Account   ",
                 Balance = 100000
             };
 
-            User Balance2 = new User("User", 8905281111)
+            User b2 = new User("Peter", "***", "User", 101)
             {
+                BankAccount = "Savings Account",
                 Balance = 300000
             };
 
-            User Balance3 = new User("User", 8905281111)
+            User b3 = new User("Peter", "***", "User", 101)
             {
+                BankAccount = "Utility Account ",
                 Balance = 4000
             };
 
-            User Balance4 = new User("User", 8905281111)
+            User b4 = new User("Peter", "***", "User", 101)
             {
+                BankAccount = "Index Account  ",
                 Balance = 3000
             };
-            List<User> users = new List<User>();
-            users.Add(userOne);
 
-            foreach (var user in users)
+            //make a list of all user accounts
+            List<User> accounts = new List<User>();
+            accounts.Add(b1); // adding account 1
+            accounts.Add(b2); // adding account 2
+            accounts.Add(b3); // adding account 3
+            accounts.Add(b4); // adding account 4
+
+            Console.WriteLine(""); // nicer looking
+                                   // method to count how many accounts the user has
+            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here
+            Console.WriteLine(""); // nicer looking
+
+            foreach (var account in accounts) //foreach loop to display accounts
             {
-                Console.WriteLine(
-                $"\nMain {user.BankAccount}                                     Balance: {user.Balance}£" +
-                $"\nSavings {user.BankAccount}                                  Balance: {Balance2.Balance}£" +
-                $"\nMonthly utiliy costs {user.BankAccount}                     Balance: {Balance3.Balance}£" +
-                $"\nMonthly Stock market deposit {user.BankAccount}             Balance {Balance4.Balance}£");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine($" {account.BankAccount}     Balance: {account.Balance}€"); // write out acc + balance
+                Console.ResetColor();
+
+
+                // Show balance in different currencies //calls the BalanceINCurrency method
+                BalanceInCurrency(account, "GBP");
+                BalanceInCurrency(account, "USD");
+                BalanceInCurrency(account, "BTC");
+
+                Console.WriteLine(); // separate each account's output
             }
+
             Console.ReadLine(); // Wait for user input
+        }
+
+        //calculates the balance in the specified currency using the oreignExchange method (Exchange rate) 
+        //then prints the converted balance along with the currency symbol.
+        public static void BalanceInCurrency(User account, string currency) // Balance in currency method with imperameters account and currency
+        {
+            // Get the exchange rate for the specified currency and stored in a decimal exchangeRate
+            decimal foreignExchange = Forex(currency);
+
+
+            //(account.Balance) is divided by the previously obtained exchange rate (exchangeRate)
+            // exampel 3000€ * 0.87 GBP = 3448 GBP
+            decimal convertedBalance = account.Balance * foreignExchange;
+
+            // wrties out the Currency, the new balance of the converted balance, and the correct symbol
+            Console.WriteLine($" {currency} Balance: {convertedBalance} {CurrencySymbol(currency)}");
+        }
+
+
+        //method to calculate the exChange rate, from currency to currency / country currency to country currency
+        public static decimal Forex(string currency) // returns decimal
+        {
+            // Define your exchange rates here
+            switch (currency.ToUpper()) // ToUpper = converted to uppercase
+            {
+                case "GBP":
+                    return 0.86m; // Example: 1 EUR = 0.86 GBP
+                case "USD":
+                    return 1.18m; // Example: 1 EUR = 1.18 USD
+                case "BTC":
+                    return 0.00003m; // Example: 1 EUR = 0.00003 BTC
+                default:
+                    return 1.0m; // Default to no conversion for unknown currencies
+            }
+        }
+
+        // method to place currency symbols after account
+        public static string CurrencySymbol(string currency) //returns string
+        {
+            // Define symbols for different currencies
+            switch (currency.ToUpper())
+            {
+                case "GBP":
+                    return "£";
+                case "USD":
+                    return "$";
+                case "BTC":
+                    return "BTC";
+                default:
+                    return "";
+            }
         }
 
         private void BorrowMoney()
