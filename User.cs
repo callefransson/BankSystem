@@ -160,8 +160,111 @@ namespace BankSystem
         {
             Console.Clear();
             Console.WriteLine("\n[Borrow money]");
-            // Add your code for the second choice here
-            Console.WriteLine("Här vill jag att ");
+
+            bool loanProcess = true;
+
+            while (loanProcess)
+            {
+                Console.WriteLine("[Loan Menu]");
+                Console.WriteLine("Our bank offers four types of loans:\n1.Mortgage loan: To finance a property.\n2.Personal Loan: Variety of reasons: Home improvments, personal expenses, dept consolidation and other reasons.\n3.Business Loan: To finance a business or company.\n4.Vehicle Loans: To finance a vehicle.");
+                Console.Write("\nPlease notice can you can only take a loan up to five times the amount in your account. ");
+                Console.Write("Enter 'exit' to leave Loan Menu.\n");
+                Console.WriteLine("What loan do you want to take?");
+
+                double interestRateMortgage = 3.2;
+                double interestRatePersonal = 4.2;
+                double interestRateBusiness = 3.7;
+                double interestRateVehicle = 3.5;
+
+                string loanInput = Console.ReadLine();
+                int loanAmount = 0;
+                double amountToPayBack = 0;
+
+                if (loanInput == "Mortgage" || loanInput == "Mortgage loan" || loanInput == "mortgage" || loanInput == "mortgage loan")
+                {
+                    amountToPayBack = loanAmount + (loanAmount * interestRateMortgage);
+
+                    Console.WriteLine("How much do you want to loan?: ");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        amountToPayBack = loanAmount + (loanAmount * interestRateMortgage);
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == "Personal" || loanInput == "Personal loan" || loanInput == "personal" || loanInput == "personal loan")
+                {
+                    Console.WriteLine("How much do you want to loan?: ");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        amountToPayBack = loanAmount + (loanAmount * interestRatePersonal);
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == "Business" || loanInput == "Business loan" || loanInput == "business" || loanInput == "business loan")
+                {
+                    Console.WriteLine("How much do you want to loan?");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        amountToPayBack = loanAmount + (loanAmount * interestRateBusiness);
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == "Vehicle" || loanInput == "Vehicle loan" || loanInput == "vehicle" || loanInput == "vehicle loan")
+                {
+                    Console.WriteLine("How much do you want to loan?");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        amountToPayBack = loanAmount + (loanAmount * interestRateVehicle);
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput?.ToLower() == "exit")
+                {
+                    break; // Exit loop
+                }
+
+                else
+                {
+                    Console.WriteLine("Not a valid option");
+                }
+
+                Console.WriteLine("Do you want to stay in the loan menu? Please enter YES or NO");
+                string loanChoice = Console.ReadLine();
+
+                if (loanChoice?.ToLower() != "yes")
+                {
+                    loanProcess = false;
+                    break; // Exit loop
+                }
+            }
             Console.ReadLine(); // Wait for user input
         }
 
