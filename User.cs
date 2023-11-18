@@ -10,10 +10,11 @@ namespace BankSystem
     internal class User : Person, Loans
 
     {
+        //menu options, (how it will look)
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
         "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
         "[6]Show all transactions\t\t", "[7]End\t\t" };
-        private int menuSelected = 0;
+        private int menuSelected = 0; // set value to 0
 
         public int Id { get; set; } // property
         public decimal Balance { get; set; }
@@ -28,9 +29,9 @@ namespace BankSystem
         }
 
 
-        public void RunMenu()
+        public void RunMenu() // method to run menu, (putting this method in Person class later)
         {
-            while (true)
+            while (true) // if condition is true, run a loop
             {
                 Console.Clear(); // Clear console for a cleaner display
 
@@ -86,7 +87,7 @@ namespace BankSystem
                     switch (menuSelected)
                     {
                         case 0:
-                            ShowBankAccounts();
+                            ShowBankAccounts(); // refere to method
                             break;
                         case 1:
                             BorrowMoney();
@@ -128,7 +129,7 @@ namespace BankSystem
             Console.ResetColor();
             // Add your code for the method here:
 
-            // code for creating user accounts and balance
+            // objects for creating user accounts and balance (instans)
             User b1 = new User("Peter", "***", "User", 101)
             {
                 BankAccount = "Main Account   ",
