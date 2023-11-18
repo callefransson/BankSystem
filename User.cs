@@ -53,7 +53,6 @@ namespace BankSystem
                 // Display menu options with arrow pointing to the selected option
                 for (int i = 0; i < menuOptions.Length; i++) // make a loop for the arrow 
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta; //made menu + arrow color Magenta
                     if (i == menuSelected)
                     {
                         Console.WriteLine(menuOptions[i] + "<--"); // display how the arrow will look like
@@ -62,7 +61,6 @@ namespace BankSystem
                     {
                         Console.WriteLine(menuOptions[i]);
                     }
-                    Console.ResetColor(); // reset color
                 }
 
                 Console.ForegroundColor = ConsoleColor.Cyan; //make Teamtag text blue
@@ -192,7 +190,7 @@ namespace BankSystem
             decimal foreignExchange = Forex(currency);
 
 
-            //(account.Balance) is divided by the previously obtained exchange rate (exchangeRate)
+            //(account.Balance) times exchange rate
             // exampel 3000€ * 0.87 GBP = 3448 GBP
             decimal convertedBalance = account.Balance * foreignExchange;
 
