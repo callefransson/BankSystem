@@ -20,7 +20,9 @@ namespace BankSystem
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
 
-        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id)
+
+        // User constructor and base (inheritance) from Person constructor.
+        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) 
         {
 
         }
