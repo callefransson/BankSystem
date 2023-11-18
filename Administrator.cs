@@ -9,13 +9,10 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace BankSystem
 {
     internal class Administrator : Person, IPrintMenu
-    {
-        public int EmployeeId { get; set; }
-        public int Id { get; set; }
-
+    { 
         private int IdCounter = 0;
 
-        public Administrator(string username, string password) : base(username, password)
+        public Administrator(string username, string password,string userRole,int id) : base(username, password,userRole,id)
         {
         }
         List<Person> accounts = new List<Person>();
@@ -23,18 +20,17 @@ namespace BankSystem
         {
             Console.Clear();
 
-            bool isCorrect = true;
             string adminInput;
-            string userName;
+            string username;
             string password;
+            int id = IdCounter++;
             Console.WriteLine("Add a user to the bank");
             do
             {
                 Console.WriteLine("Create a username for the user");
-                userName = Console.ReadLine();
+                username = Console.ReadLine();
                 Console.WriteLine("Create a password for the user");
                 password = Console.ReadLine();
-
                 Console.WriteLine("Are you sure you would like to create this user?\n1 = Yes, create user\n2 = No, cancel");
 
                 adminInput = Console.ReadLine();
@@ -54,16 +50,17 @@ namespace BankSystem
 
             } while (adminInput != "1" || adminInput != "2");
 
-            if (isCorrect && !string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(password))
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                Person account = new Person(userName,password)
+                Person account = new Person(username, password, "User", IdCounter)
                 {
-                    Username = userName,
+                    Username = username,
                     Password = password,
+                    UserRole = "User",
                     ID = IdCounter++,
                 };
                 accounts.Add(account);
-                Console.WriteLine("You have now created a new user");
+                Console.WriteLine("User with username: {0} has been created!",account.Username);
             }
             else
             {
@@ -77,20 +74,10 @@ namespace BankSystem
         {
             int adminPick;
 
+            Console.Clear();
             Console.WriteLine("Enter the id of which user you would like to remove from the bank");
             ShowAllUsers();
-            //foreach(Person allAccounts in accounts)
-            //{
-            //    if(allAccounts == null)
-            //    {
-            //        Console.WriteLine("There are no accounts yet");
-            //        continue;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Id: {0} Username: {1} ", allAccounts.ID,allAccounts.Username);
-            //    }
-            //}
+
                 while (true)
                 {
                     string? pick = Console.ReadLine();
@@ -108,22 +95,46 @@ namespace BankSystem
                         Console.WriteLine("Please type in a number");
                     }
                 }
-        }
-        public void ShowAllUsers()
-        {
-            Console.WriteLine("Show all users");
-            foreach (Person allAccounts in accounts)
+            Console.WriteLine("Type the username that you would like to remove from the bank");
+            bool userRemoved = false;
+            
+            while (!userRemoved)
             {
-                if (allAccounts == null)
+                string removeUser = Console.ReadLine();
+                Person userToRemove = accounts.Find(user => user.Username == removeUser);
+
+                if (userToRemove != null)
                 {
-                    Console.WriteLine("There are no accounts yet");
-                    continue;
+                    accounts.Remove(userToRemove);
+                    Console.WriteLine("User removed successfully!");
+                    Console.WriteLine("Updated user list");
+                    ShowAllUsers();
+                    userRemoved = true;
                 }
                 else
                 {
-                    Console.WriteLine("Id: {0} Username: {1} ", allAccounts.ID, allAccounts.Username);
+                    Console.WriteLine("User not found with that username. Please try again.");
                 }
             }
+            Console.WriteLine("Press any key to return to the menu");
+            Console.ReadKey();
+        }
+        public void ShowAllUsers()
+        {
+            Console.Clear();
+            Console.WriteLine("Show all users");
+
+            if(accounts.Count == 0) 
+            {
+                Console.WriteLine("No user in the list");
+                return;
+            }
+            foreach (Person user in accounts)
+            {
+                Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);     
+            }
+            Console.WriteLine("Press any key to return to the menu");
+            Console.ReadKey();
         }
         public void UpdateExchangeRate()
         {
