@@ -44,11 +44,18 @@ namespace BankSystem
 
                 Console.WriteLine(); // Gap in coode
                 Console.ForegroundColor = ConsoleColor.Blue; // make text blue
-                Console.WriteLine("Make a choice with the arrow");
+                Console.WriteLine("Make a choice with the arrow"); // text under user menu to so user understand to controll the arrow
                 Console.WriteLine("Press Up or Down on the keyboard");
-                Console.WriteLine("  then press Enter");
+                Console.WriteLine("then press Enter");
                 Console.ResetColor();
                 Console.WriteLine("\x1b[?25l"); // Set insertion point color to black
+
+                // Get the current date and time
+                DateTime currentTime = DateTime.Now;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine($"       {currentTime}");
+                Console.ResetColor();
+                Console.WriteLine("");
 
                 // Display menu options with arrow pointing to the selected option
                 for (int i = 0; i < menuOptions.Length; i++) // make a loop for the arrow 
