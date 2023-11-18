@@ -122,7 +122,7 @@ namespace BankSystem
             // "main" Menu in Bank aaccounts
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n[Overview of bank accounts]");
             Console.ResetColor();
             // Add your code for the method here:
@@ -161,11 +161,18 @@ namespace BankSystem
 
             Console.WriteLine(""); // nicer looking
                                    // method to count how many accounts the user has
-            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here
+            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here                                                                                                      // Get the current date and time
+            DateTime currentTime = DateTime.Now;
+            // Display the result
+            Console.Write("Current Time:  ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write($"{currentTime}");
+            Console.ResetColor();
             Console.WriteLine(""); // nicer looking
 
             foreach (var account in accounts) //foreach loop to display accounts
             {
+                Console.WriteLine(""); // nicer looking
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine($" {account.BankAccount}     Balance: {account.Balance}€"); // write out acc + balance
                 Console.ResetColor();
