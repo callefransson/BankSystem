@@ -9,10 +9,10 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace BankSystem
 {
     internal class Administrator : Person, IPrintMenu
-    { 
+    {
         private int IdCounter = 0;
 
-        public Administrator(string username, string password,string userRole,int id) : base(username, password,userRole,id)
+        public Administrator(string username, string password, string userRole, int id) : base(username, password, userRole, id)
         {
         }
         List<Person> accounts = new List<Person>();
@@ -34,7 +34,7 @@ namespace BankSystem
                 Console.WriteLine("Are you sure you would like to create this user?\n1 = Yes, create user\n2 = No, cancel");
 
                 adminInput = Console.ReadLine();
-                
+
                 switch (adminInput)
                 {
                     case "1":
@@ -60,7 +60,7 @@ namespace BankSystem
                     ID = IdCounter++,
                 };
                 accounts.Add(account);
-                Console.WriteLine("User with username: {0} has been created!",account.Username);
+                Console.WriteLine("User with username: {0} has been created!", account.Username);
             }
             else
             {
@@ -78,15 +78,29 @@ namespace BankSystem
             Console.WriteLine("Enter the id of which user you would like to remove from the bank");
             ShowAllUsers();
 
+            while (true)
+            {
+                string? pick = Console.ReadLine();
+
 
                 if (int.TryParse(pick, out adminPick))
                 {
                     break;
+
                 }
                 else if (adminPick >= 0 && adminPick < accounts.Count)
                 {
                     Console.WriteLine("Please pick the right number in the list");
                 }
+                else
+                {
+                    Console.WriteLine("Please type in a number");
+                }
+            }
+            Console.WriteLine("Type the username that you would like to remove from the bank");
+            bool userRemoved = false;
+
+            while (!userRemoved)
 
             {
                 string removeUser = Console.ReadLine();
@@ -113,14 +127,14 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("Show all users");
 
-            if(accounts.Count == 0) 
+            if (accounts.Count == 0)
             {
                 Console.WriteLine("No user in the list");
                 return;
             }
             foreach (Person user in accounts)
             {
-                Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);     
+                Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
             }
             Console.WriteLine("Press any key to return to the menu");
             Console.ReadKey();
