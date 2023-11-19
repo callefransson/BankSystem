@@ -48,8 +48,8 @@ namespace BankSystem
                     Console.ResetColor();
                 }
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                PrintTeamTag(); 
-                Console.ResetColor(); 
+                PrintTeamTag();
+                Console.ResetColor();
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
                 ConsoleKey keyPressed = keyInfo.Key;
 
@@ -85,7 +85,7 @@ namespace BankSystem
                 }
             }
         }
-        public static decimal ShowUserTransactions(List<decimal>UserTransactions)
+        public static decimal ShowUserTransactions(List<decimal> UserTransactions)
         {
             Console.Clear();
             Console.WriteLine("\n[Showing all transactions]");
@@ -96,7 +96,7 @@ namespace BankSystem
             }
             return total;
         }
-        public void ShowUsers(List<string>Users)
+        public void ShowUsers(List<string> Users)
         {
             Console.Clear();
             foreach (var item in Users)
@@ -104,7 +104,7 @@ namespace BankSystem
                 Console.WriteLine($"{User.Id} , {User.PersonalNumber} , {User.UserName}");
             }
         }
-        public void ShowAdmins(List<string>Admins)
+        public void ShowAdmins(List<string> Admins)
         {
             Console.Clear();
             foreach (var item in Admins)

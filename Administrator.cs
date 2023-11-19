@@ -47,7 +47,7 @@ namespace BankSystem
                     case "2":
                         Console.WriteLine("Please re-enter username and password.");
                         continue;
-                    default:                        
+                    default:
                         Console.WriteLine("Invalid input. Please select 1 or 2.");
                         break;
                 }
@@ -56,7 +56,7 @@ namespace BankSystem
 
             if (isCorrect && !string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(password))
             {
-                Person account = new Person(userName,password)
+                Person account = new Person(userName, password)
                 {
                     Username = userName,
                     Password = password,
@@ -91,23 +91,23 @@ namespace BankSystem
             //        Console.WriteLine("Id: {0} Username: {1} ", allAccounts.ID,allAccounts.Username);
             //    }
             //}
-                while (true)
-                {
-                    string? pick = Console.ReadLine();
+            while (true)
+            {
+                string? pick = Console.ReadLine();
 
-                    if (int.TryParse(pick, out adminPick))
-                    {
-                        break;
-                    }
-                    else if(adminPick >= 0 && adminPick < accounts.Count)
-                    {
-                        Console.WriteLine("Please pick the right number in the list");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please type in a number");
-                    }
+                if (int.TryParse(pick, out adminPick))
+                {
+                    break;
                 }
+                else if (adminPick >= 0 && adminPick < accounts.Count)
+                {
+                    Console.WriteLine("Please pick the right number in the list");
+                }
+                else
+                {
+                    Console.WriteLine("Please type in a number");
+                }
+            }
         }
         public void ShowAllUsers()
         {

@@ -103,7 +103,7 @@ namespace BankSystem
                         case 6:
                             EndProgram();
                             break;
-           
+
                     }
 
                     // Reset console cursor visibility
