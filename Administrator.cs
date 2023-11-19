@@ -52,7 +52,7 @@ namespace BankSystem
 
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                Person account = new Person(username, password, "User", IdCounter)
+
                 {
                     Username = username,
                     Password = password,
@@ -82,9 +82,11 @@ namespace BankSystem
             {
                 string? pick = Console.ReadLine();
 
+
                 if (int.TryParse(pick, out adminPick))
                 {
                     break;
+
                 }
                 else if (adminPick >= 0 && adminPick < accounts.Count)
                 {
@@ -99,6 +101,7 @@ namespace BankSystem
             bool userRemoved = false;
 
             while (!userRemoved)
+
             {
                 string removeUser = Console.ReadLine();
                 Person userToRemove = accounts.Find(user => user.Username == removeUser);

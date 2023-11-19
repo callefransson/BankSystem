@@ -10,25 +10,28 @@ namespace BankSystem
     internal class User : Person, Loans
 
     {
+        //menu options, (how it will look)
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
         "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
         "[6]Show all transactions\t\t", "[7]End\t\t" };
-        private int menuSelected = 0;
+        private int menuSelected = 0; // set value to 0
 
         public int Id { get; set; } // property
         public decimal Balance { get; set; }
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
 
-        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id)
+
+        // User constructor and base (inheritance) from Person constructor.
+        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) 
         {
 
         }
 
 
-        public void RunMenu()
+        public void RunMenu() // method to run menu, (putting this method in Person class later)
         {
-            while (true)
+            while (true) // if condition is true, run a loop
             {
                 Console.Clear(); // Clear console for a cleaner display
 
@@ -41,16 +44,22 @@ namespace BankSystem
 
                 Console.WriteLine(); // Gap in coode
                 Console.ForegroundColor = ConsoleColor.Blue; // make text blue
-                Console.WriteLine("Make a choice with the arrow");
+                Console.WriteLine("Make a choice with the arrow"); // text under user menu to so user understand to controll the arrow
                 Console.WriteLine("Press Up or Down on the keyboard");
-                Console.WriteLine("  then press Enter");
+                Console.WriteLine("then press Enter");
                 Console.ResetColor();
                 Console.WriteLine("\x1b[?25l"); // Set insertion point color to black
+
+                // Get the current date and time
+                DateTime currentTime = DateTime.Now;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine($"       {currentTime}");
+                Console.ResetColor();
+                Console.WriteLine("");
 
                 // Display menu options with arrow pointing to the selected option
                 for (int i = 0; i < menuOptions.Length; i++) // make a loop for the arrow 
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta; //made menu + arrow color Magenta
                     if (i == menuSelected)
                     {
                         Console.WriteLine(menuOptions[i] + "<--"); // display how the arrow will look like
@@ -59,7 +68,6 @@ namespace BankSystem
                     {
                         Console.WriteLine(menuOptions[i]);
                     }
-                    Console.ResetColor(); // reset color
                 }
 
                 Console.ForegroundColor = ConsoleColor.Cyan; //make Teamtag text blue
@@ -84,7 +92,7 @@ namespace BankSystem
                     switch (menuSelected)
                     {
                         case 0:
-                            ShowBankAccounts();
+                            ShowBankAccounts(); // refere to method
                             break;
                         case 1:
                             BorrowMoney();
@@ -104,7 +112,7 @@ namespace BankSystem
                         case 6:
                             EndProgram();
                             break;
-           
+
                     }
 
                     // Reset console cursor visibility
@@ -121,12 +129,12 @@ namespace BankSystem
             // "main" Menu in Bank aaccounts
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n[Overview of bank accounts]");
             Console.ResetColor();
             // Add your code for the method here:
 
-            // code for creating user accounts and balance
+            // objects for creating user accounts and balance (instans)
             User b1 = new User("Peter", "***", "User", 101)
             {
                 BankAccount = "Main Account   ",
@@ -160,11 +168,18 @@ namespace BankSystem
 
             Console.WriteLine(""); // nicer looking
                                    // method to count how many accounts the user has
-            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here
+            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here                                                                                                      // Get the current date and time
+            DateTime currentTime = DateTime.Now;
+            // Display the result
+            Console.Write("Current Time:  ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write($"{currentTime}");
+            Console.ResetColor();
             Console.WriteLine(""); // nicer looking
 
             foreach (var account in accounts) //foreach loop to display accounts
             {
+                Console.WriteLine(""); // nicer looking
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine($" {account.BankAccount}     Balance: {account.Balance}€"); // write out acc + balance
                 Console.ResetColor();
@@ -189,7 +204,7 @@ namespace BankSystem
             decimal foreignExchange = Forex(currency);
 
 
-            //(account.Balance) is divided by the previously obtained exchange rate (exchangeRate)
+            //(account.Balance) times exchange rate
             // exampel 3000€ * 0.87 GBP = 3448 GBP
             decimal convertedBalance = account.Balance * foreignExchange;
 
