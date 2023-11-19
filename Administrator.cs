@@ -43,7 +43,7 @@ namespace BankSystem
                     case "2":
                         Console.WriteLine("Please re-enter username and password.");
                         continue;
-                    default:                        
+                    default:
                         Console.WriteLine("Invalid input. Please select 1 or 2.");
                         break;
                 }
@@ -52,7 +52,7 @@ namespace BankSystem
 
             if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                Person account = new Person(username, password, "User", IdCounter)
+
                 {
                     Username = username,
                     Password = password,
@@ -78,27 +78,16 @@ namespace BankSystem
             Console.WriteLine("Enter the id of which user you would like to remove from the bank");
             ShowAllUsers();
 
-                while (true)
-                {
-                    string? pick = Console.ReadLine();
 
-                    if (int.TryParse(pick, out adminPick))
-                    {
-                        break;
-                    }
-                    else if(adminPick >= 0 && adminPick < accounts.Count)
-                    {
-                        Console.WriteLine("Please pick the right number in the list");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please type in a number");
-                    }
+                if (int.TryParse(pick, out adminPick))
+                {
+                    break;
                 }
-            Console.WriteLine("Type the username that you would like to remove from the bank");
-            bool userRemoved = false;
-            
-            while (!userRemoved)
+                else if (adminPick >= 0 && adminPick < accounts.Count)
+                {
+                    Console.WriteLine("Please pick the right number in the list");
+                }
+
             {
                 string removeUser = Console.ReadLine();
                 Person userToRemove = accounts.Find(user => user.Username == removeUser);
