@@ -35,10 +35,10 @@ namespace BankSystem
             {
                 Console.Clear(); // Clear console for a cleaner display
 
-                // Display menu
+                // Show User menu
                 Console.OutputEncoding = System.Text.Encoding.Unicode; //to se "special" symbols in console. specific : €
-                Console.BackgroundColor = ConsoleColor.Blue; //make usermenu text blue and white
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black; //make usermenu  backgeund text Black 
+                Console.ForegroundColor = ConsoleColor.Red; // and Red
                 PrintMenu();
                 Console.ResetColor(); // reset color to normal
 
@@ -126,12 +126,29 @@ namespace BankSystem
 
         public void ShowBankAccounts() // method #1, an overview of all the bank accounts
         {
-            // "main" Menu in Bank aaccounts
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            // "main" Menu or logo in  show Bank aaccounts
+            Console.OutputEncoding = System.Text.Encoding.Unicode; // to see special signs (euro sign)
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n[Overview of bank accounts]");
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[");
             Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Overview ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("of ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("bank ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("accounts");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("]");
+            Console.ResetColor();
+            Console.WriteLine("");
             // Add your code for the method here:
 
             // objects for creating user accounts and balance (instans)
@@ -229,7 +246,7 @@ namespace BankSystem
                     return 1.0m; // Default to no conversion for unknown currencies
             }
         }
-
+            
         // method to place currency symbols after account
         public static string CurrencySymbol(string currency) //returns string
         {
