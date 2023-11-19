@@ -34,7 +34,7 @@ namespace BankSystem
                 Console.WriteLine("Are you sure you would like to create this user?\n1 = Yes, create user\n2 = No, cancel");
 
                 adminInput = Console.ReadLine();
-
+                
                 switch (adminInput)
                 {
                     case "1":
