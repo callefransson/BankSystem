@@ -20,14 +20,7 @@ namespace BankSystem
             Console.WriteLine("Enter username: ");
             string userinputUsername = Console.ReadLine();
             Console.WriteLine("Enter password: ");
-            string userinputPassword = Console.ReadLine();
-
-            // Call the Login method, which is now outside of the Test method
-            if (Login(personList, userinputUsername, userinputPassword))
-            {
-                // Do something if login is successful
-            }
-            //}//public void Test()
+            string userinputPassword = Console.ReadLine();      
 
         }
         public bool Login(List<Person> personList, string username, string password)
@@ -36,6 +29,10 @@ namespace BankSystem
             {
                 if (user.Username == username && user.Password == password)
                 {
+
+                    Person Temp = new Person(user.Username, user.Password, user.UserRole,user.ID);
+                    //Lagrar temporär inloggnings info
+                    
                     Console.WriteLine("Success!");
                     if (user.UserRole == "Manager")
                     {
