@@ -1,8 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-
-namespace BankSystem
+﻿namespace BankSystem
 {
     internal class Administrator : Person, IPrintMenu
     {
@@ -15,20 +11,23 @@ namespace BankSystem
 
         public bool IsValidInput(string input) // Checks if admin creates a username or password with spaces
         {
-            return !input.Contains(" "); 
+            return !input.Contains(" ");
         }
-        public bool IsValidCharacters(string input) // Checks if admin creates a usrname or password with any special characters
+        public bool IsValidCharacters(string input)
         {
             //Creating a array with chars
-            char[] invalidCharacters = { '!', '"', '#', '¤', '%', '&', '/', '(', ')', '=', '?', '@', '£', '$', '€', '{', '[', ']', '}', '-', '_', '*', '|' };
-            foreach (char c in input) // foreach loop to check if username or password contains any special characters
+            char[] invalidCharacters = { '!', '"', '#', '%', '&', '/', '(', ')', '=', '?', '@', '$', '{', '[', ']', '}', '-', '_', '*', '|' };
+
+            foreach (char c in input)
             {
+                //Check if it is an invalid character
                 if (invalidCharacters.Contains(c))
-                { 
-                    return true; // if invalid characters found
+                {
+                    return false; //Return false if an invalid character is found
                 }
             }
-            return false; // if no invalid characters found
+
+            return true; // If no invalid charachters is found
         }
         public void AddUser() // Method for adding users to the bank
         {
@@ -71,31 +70,35 @@ namespace BankSystem
 
             } while (adminInput != "1");
 
-            if (IsValidInput(username) && IsValidInput(password) && IsValidCharacters(username) && IsValidCharacters(password))
+            if (IsValidInput(username) && IsValidInput(password))
             {
-                Person account = new Person(username, password, "User", IdCounter)
+                if (IsValidCharacters(username) && IsValidCharacters(password))
                 {
-                    Username = username,
-                    Password = password,
-                    UserRole = "User",
-                    ID = IdCounter++,
-                };
-                accounts.Add(account);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("User with username: {0} has been created!", account.Username);
-                Console.ResetColor();
-            }
-            else if(!IsValidCharacters(username)&& !IsValidCharacters(password))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("User creation canceled. Cant have any spaces in username or password");
-                Console.ResetColor();
+                    // Skapa användaren om både inmatning utan mellanslag och utan ogiltiga tecken är sanna
+                    Person account = new Person(username, password, "User", IdCounter)
+                    {
+                        Username = username,
+                        Password = password,
+                        UserRole = "User",
+                        ID = IdCounter++,
+                    };
+                    accounts.Add(account);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("User with username: {0} has been created!", account.Username);
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("User creation canceled. Can't have any special characters in username or password");
+                    Console.WriteLine("Invalid characters are (!, #, ¤, %, &, /, (, ), =, ?, @, £, $, €, {, [, ], }, -, _, *, |");
+                    Console.ResetColor();
+                }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("User creation canceled. Can't have any special characters in username or password");
-                Console.WriteLine("Invalid characters are (!, #, ¤, %, &, /, (, ), =, ?, @, £, $, €, {, [, ], }, -, _, *, |");
+                Console.WriteLine("User creation canceled. Cant have any spaces in username or password");
                 Console.ResetColor();
             }
             Console.WriteLine("");
@@ -103,8 +106,6 @@ namespace BankSystem
         }
         public void RemoveUser()
         {
-            int adminPick;
-
             Console.Clear();
             if (accounts.Count == 0)
             {
@@ -179,7 +180,7 @@ namespace BankSystem
         }
         public void UpdateExchangeRate()
         {
-            
+
         }
         public void PrintMenu()
         {
