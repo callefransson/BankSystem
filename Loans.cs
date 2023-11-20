@@ -8,10 +8,6 @@ namespace BankSystem
 {
     internal interface Loans
     {
-        public void LimitLoans()
-        {
-            decimal i = accountAmount * 5;
-            Console.WriteLine("You can borrow " + i + " SEK");
-        }
+        public void LimitLoans(){ }
     }
 }
