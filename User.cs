@@ -168,7 +168,7 @@ namespace BankSystem
                 Console.WriteLine("[Loan Menu]");
                 Console.WriteLine("Our bank offers four types of loans:\n1.Mortgage loan: To finance a property.\n2.Personal Loan: Variety of reasons: Home improvments, personal expenses, dept consolidation and other reasons.\n3.Business Loan: To finance a business or company.\n4.Vehicle Loans: To finance a vehicle.");
                 Console.Write("\nPlease notice can you can only take a loan up to five times the amount in your account. ");
-                Console.Write("Enter 'exit' to leave Loan Menu.\n");
+                Console.Write("Enter '5' to leave Loan Menu.\n");
                 Console.WriteLine("What loan do you want to take?");
 
                 double interestRateMortgage = 3.2;
@@ -176,21 +176,21 @@ namespace BankSystem
                 double interestRateBusiness = 3.7;
                 double interestRateVehicle = 3.5;
 
-                string loanInput = Console.ReadLine();
+                int loanInput = Convert.ToInt32(Console.ReadLine());
                 int loanAmount = 0;
-                double amountToPayBack = 0;
+                double amountToPayBackPerMonth = 0;
 
-                if (loanInput == "Mortgage" || loanInput == "Mortgage loan" || loanInput == "mortgage" || loanInput == "mortgage loan")
+                if (loanInput == 1) // Mortgage loan
                 {
-                    amountToPayBack = loanAmount + (loanAmount * interestRateMortgage);
 
                     Console.WriteLine("How much do you want to loan?: ");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        amountToPayBack = loanAmount + (loanAmount * interestRateMortgage);
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                        // Annual plan - total amount to pay per month
+                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRateMortgage) / 12;
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
                     }
                     else
                     {
@@ -198,15 +198,16 @@ namespace BankSystem
                     }
                 }
 
-                else if (loanInput == "Personal" || loanInput == "Personal loan" || loanInput == "personal" || loanInput == "personal loan")
+                else if (loanInput == 2) // Personal loan
                 {
                     Console.WriteLine("How much do you want to loan?: ");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        amountToPayBack = loanAmount + (loanAmount * interestRatePersonal);
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                        // Annual plan - total amount to pay per month
+                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRatePersonal) / 12;
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
                     }
                     else
                     {
@@ -214,15 +215,16 @@ namespace BankSystem
                     }
                 }
 
-                else if (loanInput == "Business" || loanInput == "Business loan" || loanInput == "business" || loanInput == "business loan")
+                else if (loanInput == 3) // Business loan
                 {
                     Console.WriteLine("How much do you want to loan?");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        amountToPayBack = loanAmount + (loanAmount * interestRateBusiness);
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                        // Annual plan - total amount to pay per month
+                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRateBusiness) / 12;
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
                     }
                     else
                     {
@@ -230,15 +232,16 @@ namespace BankSystem
                     }
                 }
 
-                else if (loanInput == "Vehicle" || loanInput == "Vehicle loan" || loanInput == "vehicle" || loanInput == "vehicle loan")
+                else if (loanInput == 4) // Vehicle loan
                 {
                     Console.WriteLine("How much do you want to loan?");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        amountToPayBack = loanAmount + (loanAmount * interestRateVehicle);
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBack);
+                        // Annual plan - total amount to pay per month
+                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRateVehicle) / 12;
+                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
                     }
                     else
                     {
@@ -246,7 +249,7 @@ namespace BankSystem
                     }
                 }
 
-                else if (loanInput?.ToLower() == "exit")
+                else if (loanInput == 5)
                 {
                     break; // Exit loop
                 }
@@ -264,8 +267,8 @@ namespace BankSystem
                     loanProcess = false;
                     break; // Exit loop
                 }
-            }
-            Console.ReadLine(); // Wait for user input
+
+                Console.ReadLine(); // Wait for user input
         }
 
         private void OpenNewBankAccount()
