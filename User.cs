@@ -377,6 +377,7 @@ namespace BankSystem
                 }
 
                 Console.ReadLine(); // Wait for user input
+            }
         }
 
         private void OpenNewBankAccount()
