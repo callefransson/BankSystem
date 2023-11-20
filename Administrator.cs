@@ -27,7 +27,7 @@
                 }
             }
 
-            return true; // If no invalid charachters is found
+            return true; // If no invalid character is found
         }
         public void AddUser() // Method for adding users to the bank
         {
@@ -74,7 +74,7 @@
             {
                 if (IsValidCharacters(username) && IsValidCharacters(password))
                 {
-                    // Skapa användaren om både inmatning utan mellanslag och utan ogiltiga tecken är sanna
+                    // Create user if both 'no spaces' and 'no invalid character' are true
                     Person account = new Person(username, password, "User", IdCounter)
                     {
                         Username = username,
@@ -90,7 +90,7 @@
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("User creation canceled. Can't have any special characters in username or password");
+                    Console.WriteLine("User creation cancelled. Can't have any special characters in username or password");
                     Console.WriteLine("Invalid characters are (!, #, ¤, %, &, /, (, ), =, ?, @, £, $, €, {, [, ], }, -, _, *, |");
                     Console.ResetColor();
                 }
