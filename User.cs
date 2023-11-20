@@ -166,31 +166,42 @@ namespace BankSystem
             while (loanProcess)
             {
                 Console.WriteLine("[Loan Menu]");
-                Console.WriteLine("Our bank offers four types of loans:\n1.Mortgage loan: To finance a property.\n2.Personal Loan: Variety of reasons: Home improvments, personal expenses, dept consolidation and other reasons.\n3.Business Loan: To finance a business or company.\n4.Vehicle Loans: To finance a vehicle.");
+                Console.WriteLine("Our bank offers four types of loans:\n1.Mortgage loan: To finance a property.\n2.Personal Loan: Variety of reasons: Home improvments, personal expenses, dept consolidation etc.\n3.Business Loan: To finance a business or company.\n4.Vehicle Loans: To finance a vehicle.");
                 Console.Write("\nPlease notice can you can only take a loan up to five times the amount in your account. ");
-                Console.Write("Enter '5' to leave Loan Menu.\n");
-                Console.WriteLine("What loan do you want to take?");
+                Console.Write("Enter '5' to leave the loan sections.\n");
+                Console.WriteLine("Which loan are you interested in?");
 
-                double interestRateMortgage = 3.2;
-                double interestRatePersonal = 4.2;
-                double interestRateBusiness = 3.7;
-                double interestRateVehicle = 3.5;
+                decimal maxLoanAmount = Balance * 5;
 
+                double debt = 0;
                 int loanInput = Convert.ToInt32(Console.ReadLine());
                 int loanAmount = 0;
-                double amountToPayBackPerMonth = 0;
+
 
                 if (loanInput == 1) // Mortgage loan
                 {
 
-                    Console.WriteLine("How much do you want to loan?: ");
+                    Console.WriteLine("How much money do you want to borrow?: ");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        // Annual plan - total amount to pay per month
-                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRateMortgage) / 12;
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRateMortgage = 3.2;
+
+                            // Annual plan - total amount to pay per month
+                            double mortgageMonthyAmount = loanAmount + (loanAmount * interestRateMortgage) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRateMortgage);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + mortgageMonthyAmount.ToString("N3"));
+                        }
+
                     }
                     else
                     {
@@ -200,14 +211,28 @@ namespace BankSystem
 
                 else if (loanInput == 2) // Personal loan
                 {
-                    Console.WriteLine("How much do you want to loan?: ");
+                    Console.WriteLine("How much money do you want to borrow?: ");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        // Annual plan - total amount to pay per month
-                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRatePersonal) / 12;
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRatePersonal = 4.2;
+
+                            // Annual plan - total amount to pay per month
+                            double personalMonthlyAmount = loanAmount + (loanAmount * interestRatePersonal) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRatePersonal);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + personalMonthlyAmount.ToString("N3"));
+                        }
+
+
                     }
                     else
                     {
@@ -217,14 +242,27 @@ namespace BankSystem
 
                 else if (loanInput == 3) // Business loan
                 {
-                    Console.WriteLine("How much do you want to loan?");
+                    Console.WriteLine("How much money do you want to borrow?: ");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        // Annual plan - total amount to pay per month
-                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRateBusiness) / 12;
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRateBusiness = 3.7;
+
+                            // Annual plan - total amount to pay per month
+                            double businessMonthlyAmount = loanAmount + (loanAmount * interestRateBusiness) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRateBusiness);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + businessMonthlyAmount.ToString("N3"));
+                        }
+
                     }
                     else
                     {
@@ -234,14 +272,26 @@ namespace BankSystem
 
                 else if (loanInput == 4) // Vehicle loan
                 {
-                    Console.WriteLine("How much do you want to loan?");
+                    Console.WriteLine("How much money do you want to borrow?: ");
                     bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
 
                     if (isValidInput && loanAmount > 0)
                     {
-                        // Annual plan - total amount to pay per month
-                        amountToPayBackPerMonth = loanAmount + (loanAmount * interestRateVehicle) / 12;
-                        Console.WriteLine("The total amount you have to pay back is: " + amountToPayBackPerMonth);
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRateVehicle = 3.5;
+
+                            // Annual plan - total amount to pay per month
+                            double vehicleMonthlyAmount = loanAmount + (loanAmount * interestRateVehicle) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRateVehicle);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + vehicleMonthlyAmount.ToString("N3"));
+                        }
                     }
                     else
                     {
@@ -259,7 +309,7 @@ namespace BankSystem
                     Console.WriteLine("Not a valid option");
                 }
 
-                Console.WriteLine("Do you want to stay in the loan menu? Please enter YES or NO");
+                Console.WriteLine("Do you wish to remain in the loan segement? Please enter YES or NO");
                 string loanChoice = Console.ReadLine();
 
                 if (loanChoice?.ToLower() != "yes")
@@ -267,9 +317,10 @@ namespace BankSystem
                     loanProcess = false;
                     break; // Exit loop
                 }
-
-                Console.ReadLine(); // Wait for user input
             }
+
+            Console.ReadLine(); // Wait for user input
+            
         }
 
         private void OpenNewBankAccount()
