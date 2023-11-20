@@ -277,12 +277,45 @@ namespace BankSystem
         {
             Console.Clear();
             // main menu for Open new bank account
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n[Open new account]");
+            Console.OutputEncoding = System.Text.Encoding.Unicode; // to see special signs (euro sign)
+            Console.Clear();
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[");
             Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Open ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("new ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("account");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("]");
+            Console.ResetColor();
+            Console.WriteLine("");
             // Add your code for the OpenNewBankAccount here
-            Console.WriteLine("type [1] to open a savings account \nType [2] to open other account");
+
+            Console.WriteLine("");
+            Console.Write("type");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("[1]");
+            Console.ResetColor();
+            Console.Write("to open a ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("savings account");
+            Console.ResetColor();
+            Console.Write("\ntype");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("[2]");
+            Console.ResetColor();
+            Console.Write("to open ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("other account");
+            Console.WriteLine("");
+            Console.ResetColor();
             int userInput = int.Parse(Console.ReadLine()); // userinput to select 1 or 2
 
             if (userInput == 1) // if user type 1 and enter : 
@@ -304,18 +337,31 @@ namespace BankSystem
                 Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
                 Console.ResetColor();
                 Console.WriteLine("");
-                Console.Write(" How much do you want to Deposit in €?  ");
 
-                double userInput1 = double.Parse(Console.ReadLine()); // userinput to deposit Euro
-                double yInterest = userInput1 * 0.01; // mathematic for 1% yearly rate of deposit 
-                Console.WriteLine("");
-                Console.WriteLine("*************Savings account info***************");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine(userInput1 + "€ has been deposit to your savings account");
-                Console.WriteLine();
-                Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
-                Console.ResetColor();
-                Console.WriteLine("________________________________________________");
+                bool validInput = false; // valid input = false
+                while (!validInput) // not false to run the loop
+                {
+                    Console.Write(" How much do you want to Deposit in €?  ");
+
+                    if (double.TryParse(Console.ReadLine(), out double userInput1))
+                    {
+                        double yInterest = userInput1 * 0.01; // mathematic for 1% yearly rate of deposit 
+                        Console.WriteLine("");
+                        Console.WriteLine("*************Savings account info***************");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine(userInput1 + "€ has been deposit to your savings account");
+                        Console.WriteLine();
+                        Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
+                        Console.ResetColor();
+                        Console.WriteLine("________________________________________________");
+
+                        validInput = true; // set to true to exit the loop
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter sufficient amount.");
+                    }
+                }
             }
             else if (userInput == 2) // if user type 2 and enter:
             {
