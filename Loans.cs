@@ -10,8 +10,8 @@ namespace BankSystem
     {
         public void LimitLoans()
         {
-            decimal i = accountAmount * 5;
-            Console.WriteLine("You can borrow " + i + " SEK");
+            //decimal i = accountAmount * 5;
+            //Console.WriteLine("You can borrow " + i + " SEK");
         }
     }
 }
