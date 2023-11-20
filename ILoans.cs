@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    internal interface Loans
+    internal interface ILoans
     {
         public void LimitLoans(){ }
     }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BankSystem
 {
 
-    internal class User : Person, Loans
+    internal class User : Person, ILoans
 
     {
         //menu options, (how it will look)
@@ -22,6 +23,9 @@ namespace BankSystem
         public string BankAccount { get; set; }
 
 
+        public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
+
+
         // User constructor and base (inheritance) from Person constructor.
         public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) 
         {
@@ -29,7 +33,7 @@ namespace BankSystem
         }
 
 
-        public void RunMenu() // method to run menu, (putting this method in Person class later)
+        public override void RunMenu() // method to run menu, (putting this method in Person class later)
         {
             while (true) // if condition is true, run a loop
             {
@@ -508,7 +512,34 @@ namespace BankSystem
         {
             Console.Clear();
             Console.WriteLine("\n[Transfer to user");
-            // Add your code for the fifth choice here
+            List<User> users = new List<User>();  // creates a list of users
+
+            User userA = new User("Anna", "Anna123", "user", Id); //creates users
+            userA.NewAccount(5);
+
+            User userB = new User("Anders", "Anders123", "user", Id);
+            userB.NewAccount(2);
+
+            users.Add(userA); //adds users to list
+            users.Add(userB);
+
+            foreach (var account in userB.userAccounts)
+            {
+                Console.WriteLine(account.AccountNumber); 
+                Console.WriteLine();
+            }
+
+            Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == "1231234565"); //finds user account to transfer from
+
+            Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == "1231234562"); //finds user account to transfer to
+
+            Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine(userBAcc.TotalAmount); //shows total amount before transfer
+
+            TransferMoney(userAAcc, userBAcc, 500); //transferring 500 from user A to user B
+
+            Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
 
             Console.ReadLine(); // Wait for user input
         }
@@ -544,6 +575,20 @@ namespace BankSystem
 ('Y') )                    )  ( ')
 /   \/  Team #1: CodeCats (  /  )
 (\|||/)                     \(__)|");
+        }
+
+        public void NewAccount(int uniqueId) //method for creating accounts for TransferToUser method
+        {
+            Accounts newAccount = new Accounts();
+            newAccount.TotalAmount = 1000;
+            newAccount.AccountNumber = "123123456" + uniqueId;
+
+            userAccounts.Add(newAccount);
+        }
+        public static void TransferMoney(Accounts accountA, Accounts accountB, decimal amountToTransfer) //method for transferring money for TransferToUser method
+        {
+            accountA.TotalAmount -= amountToTransfer;
+            accountB.TotalAmount += amountToTransfer;
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            starta apprun = new starta();
+            Start apprun = new Start();
             apprun.Test();
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    class starta
+    class Start
     {
         public void Test()
         {
@@ -30,20 +30,20 @@ namespace BankSystem
                 if (user.Username == username && user.Password == password)
                 {
 
-                    Person Temp = new Person(user.Username, user.Password, user.UserRole,user.ID);  
+                    Person Temp = new Person(user.Username, user.Password, user.UserRole, user.ID);  
 
                     if (user.UserRole == "Admin")
                     {
-                        Console.WriteLine("This is a Admin");
+                        Console.WriteLine("This is an Admin");
                         //do xyz
-                        Administrator a1 = new Administrator(user.Username, user.Password,"Admin",1);
+                        Administrator a1 = new Administrator(user.Username, user.Password, "Admin", 1);
                         a1.RunMenu();
                     }
                     if (user.UserRole == "User")
                     {
                         Console.WriteLine("This is a User");
                         //do xyz
-                        User u1 = new User(username, password,"User",1);
+                        User u1 = new User(username, password, "User", 1);
                         u1.RunMenu();
                     }
                     return true;
