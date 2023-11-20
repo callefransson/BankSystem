@@ -20,7 +20,9 @@ namespace BankSystem
             Console.WriteLine("Enter username: ");
             string userinputUsername = Console.ReadLine();
             Console.WriteLine("Enter password: ");
-            string userinputPassword = Console.ReadLine();      
+            string userinputPassword = Console.ReadLine();
+
+            Login(personList, userinputUsername, userinputPassword);
 
         }
         public bool Login(List<Person> personList, string username, string password)
@@ -30,7 +32,7 @@ namespace BankSystem
                 if (user.Username == username && user.Password == password)
                 {
 
-                    Person Temp = new Person(user.Username, user.Password, user.UserRole,user.ID);
+                    Person Temp = new Person(user.Username, user.Password, user.UserRole,user.ID);  
                     //Lagrar temporär inloggnings info
                     
                     Console.WriteLine("Success!");
