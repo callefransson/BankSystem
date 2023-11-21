@@ -2,12 +2,14 @@
 {
     internal class Administrator : Person, IPrintMenu
     {
-        private int IdCounter = 1;
 
         public Administrator(string username, string password, string userRole, int id) : base(username, password, userRole, id)
         {
         }
+
         List<Person> accounts = new List<Person>();
+        Exchange exchangeRate = new Exchange();
+        
 
         public bool IsValidInput(string input) // Checks if admin creates a username or password with spaces
         {
@@ -36,7 +38,7 @@
             string adminInput;
             string username;
             string password;
-            int id = IdCounter;
+            int id = ID;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[ Add a user to the bank ]");
@@ -75,12 +77,12 @@
                 if (IsValidCharacters(username) && IsValidCharacters(password))
                 {
                     // Create user if both 'no spaces' and 'no invalid character' are true
-                    Person account = new Person(username, password, "User", IdCounter)
+                    Person account = new Person(username, password, "User", ID)
                     {
                         Username = username,
                         Password = password,
                         UserRole = "User",
-                        ID = IdCounter++,
+                        ID = ID++
                     };
                     accounts.Add(account);
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -178,10 +180,7 @@
             }
             ReturnToMenu();
         }
-        public void UpdateExchangeRate()
-        {
-
-        }
+        
         public void PrintMenu()
         {
             Console.WriteLine(@"
@@ -193,7 +192,7 @@
  ");
         }
         private string[] menuOptions = {"[1]Open new account\t\t", "[2]Remove account\t\t",
-        "[3]Show all accounts\t\t", "[4]End\t\t" };
+        "[3]Show all accounts\t\t","[4]Update exchange rate\t\t", "[5]End\t\t" };
         private int menuSelected = 0;
         public override void RunMenu()
         {
@@ -256,6 +255,9 @@
                             ShowAllUsers();
                             break;
                         case 3:
+                            exchangeRate.UpdateExchangeRate(this);
+                            break;
+                        case 4:
                             Console.WriteLine("Thanks for using CodeCats awesome bank!");
                             Environment.Exit(0);
                             break;
@@ -281,10 +283,9 @@
         public void PrintTeamTag()
         {
             Console.WriteLine(@"
- ^~^  ,                    \   /\      
-('Y') )                    )  ( ')
-/   \/  Team #1: CodeCats (  /  )
-(\|||/)                     \(__)|");
+  /\_/\                         /\_/\    
+ (>^.^<)                       (>^.^<)
+((¨)(¨))_/ Team #1: CodeCats \_((¨)(¨))");
         }
     }
 }
