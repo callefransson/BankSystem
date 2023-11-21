@@ -622,10 +622,9 @@ namespace BankSystem
         public void PrintTeamTag()
         {
             Console.WriteLine(@"
- ^~^  ,                   \    /\      
-('Y') )                    )  ( ')
-/   \/  Team #1: CodeCats (  /  )
-(\|||/)                     \(__)|");
+  /\_/\                         /\_/\    
+ (>^.^<)                       (>^.^<)
+((¨)(¨))_/ Team #1: CodeCats \_((¨)(¨))");
         }
 
         public void NewAccount(int uniqueId) //method for creating accounts for TransferToUser method
