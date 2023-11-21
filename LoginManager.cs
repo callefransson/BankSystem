@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    class Start
+    class LoginManager
     {
         public void Test()
         {
