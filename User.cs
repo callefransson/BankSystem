@@ -564,10 +564,10 @@ namespace BankSystem
             Console.WriteLine("\n[Transfer to user");
             List<User> users = new List<User>();  // creates a list of users
 
-            User userA = new User("Anna", "Anna123", "user", Id); //creates users
+            User userA = new User("Anna", "Anna123", "user", ID); //creates users
             userA.NewAccount(5);
 
-            User userB = new User("Anders", "Anders123", "user", Id);
+            User userB = new User("Anders", "Anders123", "user", ID);
             userB.NewAccount(2);
 
             users.Add(userA); //adds users to list
