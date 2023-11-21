@@ -209,6 +209,7 @@ namespace BankSystem
                 BalanceInCurrency(account, "GBP");
                 BalanceInCurrency(account, "USD");
                 BalanceInCurrency(account, "BTC");
+                BalanceInCurrency(account, "SEK");
 
                 Console.WriteLine(); // separate each account's output
             }
@@ -240,11 +241,13 @@ namespace BankSystem
             switch (currency.ToUpper()) // ToUpper = converted to uppercase
             {
                 case "GBP":
-                    return 0.86m; // Example: 1 EUR = 0.86 GBP
+                    return 0.87m; // 1 EUR = 0.86 GBP // watched Exchange rate from the exchange Class
                 case "USD":
-                    return 1.18m; // Example: 1 EUR = 1.18 USD
+                    return 1.09m; // 1 EUR = 1.18 USD // watched Exchange rate from the exchange Class
                 case "BTC":
-                    return 0.00003m; // Example: 1 EUR = 0.00003 BTC
+                    return 0.00003m; // 1 EUR = 0.00003 BTC
+                case "SEK":
+                    return 11.47m; // 1 EUR = 11.47 SEK // watched Exchange rate from the exchange Class
                 default:
                     return 1.0m; // Default to no conversion for unknown currencies
             }
@@ -261,7 +264,9 @@ namespace BankSystem
                 case "USD":
                     return "$";
                 case "BTC":
-                    return "BTC";
+                    return "₿";
+                case "SEK":
+                    return "Kr";
                 default:
                     return "";
             }
