@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Start apprun = new Start();
+            LoginManager apprun = new LoginManager();
             apprun.Test();
         }
 
