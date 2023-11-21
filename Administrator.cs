@@ -275,7 +275,7 @@
                     if (!isLoggedIn)
                     {
                         Console.Clear();
-                        Start s = new Start();
+                        LoginManager s = new LoginManager();
                         s.Test();
                     }
 
