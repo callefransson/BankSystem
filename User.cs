@@ -16,9 +16,8 @@ namespace BankSystem
         "[6]Show all transactions\t\t", "[7]End\t\t" };
         private int menuSelected = 0; // set value to 0
 
-        public int Id { get; set; } // property
         public decimal Balance { get; set; }
-        public int CreditScore { get; set; }
+        public int CreditScore { get; set; } // are we still going to use?
         public string BankAccount { get; set; }
 
 
