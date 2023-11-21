@@ -17,9 +17,8 @@ namespace BankSystem
         "[6]Show all transactions\t\t", "[7]End\t\t" };
         private int menuSelected = 0; // set value to 0
 
-        public int Id { get; set; } // property
         public decimal Balance { get; set; }
-        public int CreditScore { get; set; }
+        public int CreditScore { get; set; } // are we still going to use?
         public string BankAccount { get; set; }
 
 
@@ -565,10 +564,10 @@ namespace BankSystem
             Console.WriteLine("\n[Transfer to user");
             List<User> users = new List<User>();  // creates a list of users
 
-            User userA = new User("Anna", "Anna123", "user", Id); //creates users
+            User userA = new User("Anna", "Anna123", "user", ID); //creates users
             userA.NewAccount(5);
 
-            User userB = new User("Anders", "Anders123", "user", Id);
+            User userB = new User("Anders", "Anders123", "user", ID);
             userB.NewAccount(2);
 
             users.Add(userA); //adds users to list
