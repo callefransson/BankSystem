@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BankSystem
 {
 
-    internal class User : Person, Loans
+    internal class User : Person, ILoans
 
     {
         //menu options, (how it will look)
@@ -22,6 +23,9 @@ namespace BankSystem
         public string BankAccount { get; set; }
 
 
+        public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
+
+
         // User constructor and base (inheritance) from Person constructor.
         public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) 
         {
@@ -29,7 +33,7 @@ namespace BankSystem
         }
 
 
-        public void RunMenu() // method to run menu, (putting this method in Person class later)
+        public override void RunMenu() // method to run menu, (putting this method in Person class later)
         {
             while (true) // if condition is true, run a loop
             {
@@ -112,7 +116,7 @@ namespace BankSystem
                         case 6:
                             EndProgram();
                             break;
-           
+
                     }
 
                     // Reset console cursor visibility
@@ -268,9 +272,167 @@ namespace BankSystem
         {
             Console.Clear();
             Console.WriteLine("\n[Borrow money]");
-            // Add your code for the second choice here
-            Console.WriteLine("Här vill jag att ");
+
+            bool loanProcess = true;
+
+            while (loanProcess)
+            {
+                Console.WriteLine("[Loan Menu]");
+                Console.WriteLine("Our bank offers four types of loans:\n1.Mortgage loan: To finance a property.\n2.Personal Loan: Variety of reasons: Home improvments, personal expenses, dept consolidation etc.\n3.Business Loan: To finance a business or company.\n4.Vehicle Loans: To finance a vehicle.");
+                Console.Write("\nPlease notice can you can only take a loan up to five times the amount in your account. ");
+                Console.Write("Enter '5' to leave the loan sections.\n");
+                Console.WriteLine("Which loan are you interested in?");
+
+                decimal maxLoanAmount = Balance * 5;
+
+                double debt = 0;
+                int loanInput = Convert.ToInt32(Console.ReadLine());
+                int loanAmount = 0;
+
+
+                if (loanInput == 1) // Mortgage loan
+                {
+
+                    Console.WriteLine("How much money do you want to borrow?: ");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRateMortgage = 3.2;
+
+                            // Annual plan - total amount to pay per month
+                            double mortgageMonthyAmount = loanAmount + (loanAmount * interestRateMortgage) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRateMortgage);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + mortgageMonthyAmount.ToString("N3"));
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == 2) // Personal loan
+                {
+                    Console.WriteLine("How much money do you want to borrow?: ");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRatePersonal = 4.2;
+
+                            // Annual plan - total amount to pay per month
+                            double personalMonthlyAmount = loanAmount + (loanAmount * interestRatePersonal) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRatePersonal);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + personalMonthlyAmount.ToString("N3"));
+                        }
+
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == 3) // Business loan
+                {
+                    Console.WriteLine("How much money do you want to borrow?: ");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRateBusiness = 3.7;
+
+                            // Annual plan - total amount to pay per month
+                            double businessMonthlyAmount = loanAmount + (loanAmount * interestRateBusiness) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRateBusiness);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + businessMonthlyAmount.ToString("N3"));
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == 4) // Vehicle loan
+                {
+                    Console.WriteLine("How much money do you want to borrow?: ");
+                    bool isValidInput = int.TryParse(Console.ReadLine(), out loanAmount);
+
+                    if (isValidInput && loanAmount > 0)
+                    {
+                        if (loanAmount > maxLoanAmount)
+                        {
+                            Console.WriteLine("Warning: The amount you're trying to borrow exceeds the loan limit.");
+                        }
+
+                        else
+                        {
+                            double interestRateVehicle = 3.5;
+
+                            // Annual plan - total amount to pay per month
+                            double vehicleMonthlyAmount = loanAmount + (loanAmount * interestRateVehicle) / 12;
+                            // Total debt
+                            debt = loanAmount + (loanAmount * interestRateVehicle);
+                            Console.WriteLine("Your total debt is: " + debt + "." + " The amount you have to pay each month is: " + vehicleMonthlyAmount.ToString("N3"));
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a positive number.");
+                    }
+                }
+
+                else if (loanInput == 5)
+                {
+                    break; // Exit loop
+                }
+
+                else
+                {
+                    Console.WriteLine("Not a valid option");
+                }
+
+                Console.WriteLine("Do you wish to remain in the loan segement? Please enter YES or NO");
+                string loanChoice = Console.ReadLine();
+
+                if (loanChoice?.ToLower() != "yes")
+                {
+                    loanProcess = false;
+                    break; // Exit loop
+                }
+            }
+
             Console.ReadLine(); // Wait for user input
+            
         }
 
         private void OpenNewBankAccount()
@@ -401,7 +563,34 @@ namespace BankSystem
         {
             Console.Clear();
             Console.WriteLine("\n[Transfer to user");
-            // Add your code for the fifth choice here
+            List<User> users = new List<User>();  // creates a list of users
+
+            User userA = new User("Anna", "Anna123", "user", Id); //creates users
+            userA.NewAccount(5);
+
+            User userB = new User("Anders", "Anders123", "user", Id);
+            userB.NewAccount(2);
+
+            users.Add(userA); //adds users to list
+            users.Add(userB);
+
+            foreach (var account in userB.userAccounts)
+            {
+                Console.WriteLine(account.AccountNumber); 
+                Console.WriteLine();
+            }
+
+            Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == "1231234565"); //finds user account to transfer from
+
+            Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == "1231234562"); //finds user account to transfer to
+
+            Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine(userBAcc.TotalAmount); //shows total amount before transfer
+
+            TransferMoney(userAAcc, userBAcc, 500); //transferring 500 from user A to user B
+
+            Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
 
             Console.ReadLine(); // Wait for user input
         }
@@ -436,6 +625,22 @@ namespace BankSystem
   /\_/\                         /\_/\    
  (>^.^<)                       (>^.^<)
 ((¨)(¨))_/ Team #1: CodeCats \_((¨)(¨))");
+
+        }
+
+        public void NewAccount(int uniqueId) //method for creating accounts for TransferToUser method
+        {
+            Accounts newAccount = new Accounts();
+            newAccount.TotalAmount = 1000;
+            newAccount.AccountNumber = "123123456" + uniqueId;
+
+            userAccounts.Add(newAccount);
+        }
+        public static void TransferMoney(Accounts accountA, Accounts accountB, decimal amountToTransfer) //method for transferring money for TransferToUser method
+        {
+            accountA.TotalAmount -= amountToTransfer;
+            accountB.TotalAmount += amountToTransfer;
+
         }
     }
 }
