@@ -4,8 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Start apprun = new Start();
-            apprun.Test();
+      
+            LoginManager apprun = new LoginManager();
+            apprun.firstStart();
         }
 
     }

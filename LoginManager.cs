@@ -6,26 +6,75 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    class Start
+    
+    
+    class LoginManager
     {
-        public void Test()
+        
+        
+        public void firstStart() 
         {
             List<Person> personList = new List<Person>();
-
             personList.Add(new Person("JohnDoe", "password123", "Admin", 1));
             personList.Add(new Person("JaneDoe", "pass456", "User", 2));
+            Test(personList);
 
-            Console.WriteLine("Enter username: ");
+        }
+
+        public int loginAttempts = 3;
+        public void PrintMenu()
+        {
+            Console.WriteLine(@"
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+██░████▀▄▄▀█░▄▄▄██▄██░▄▄▀████░▄▀▄░█░▄▄█░▄▄▀█░██░██
+██░████░██░█░█▄▀██░▄█░██░████░█░█░█░▄▄█░██░█░██░██
+██░▀▀░██▄▄██▄▄▄▄█▄▄▄█▄██▄████░███░█▄▄▄█▄██▄██▄▄▄██
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+");
+        }
+
+        public void lockout()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("You have too many attempts wait for 5 minutes");
+            Console.ResetColor();
+            Thread.Sleep(300000);
+            loginAttempts = 3;
+        }
+
+        public void Test(List<Person> personList)
+        {
+            
+            
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            PrintMenu();
+            if (loginAttempts == 0)
+            {
+                lockout();
+                
+            }
+            if (loginAttempts <= 2)
+            {
+                Console.WriteLine("You entered the wrong credentials. You have: " + loginAttempts + " attempts left");
+            }
+            Console.ResetColor();
+            Console.Write("Enter username: ");
             string userinputUsername = Console.ReadLine();
-            Console.WriteLine("Enter password: ");
+            Console.Write("Enter password: ");
             string userinputPassword = Console.ReadLine();
+            loginAttempts--;
+
 
             Login(personList, userinputUsername, userinputPassword);
 
         }
+
         public bool Login(List<Person> personList, string username, string password)
         {
             foreach (Person user in personList)
+
             {
                 if (user.Username == username && user.Password == password)
                 {
@@ -48,8 +97,27 @@ namespace BankSystem
                     }
                     return true;
                 }
-            }
+                else if(user.Username == username && user.Password != password)
+                {
+                    
+                    Console.WriteLine("You entered the wrong password. You have: "+ loginAttempts+" attempts left");
+                    Thread.Sleep(4000);
+                    Console.Clear();
+                    Test(personList);
+                }
+                else if (user.Username != username && user.Password == password)
+                {
+                    Console.WriteLine("You entered the wrong password. You have: "+ loginAttempts+ " attempts left");
+                    Thread.Sleep(4000);
+                    Console.Clear();
+                    Test(personList);
+                }
+                
+                
 
+            }
+            Console.Clear();
+            Test(personList);
             return false;
             
         }

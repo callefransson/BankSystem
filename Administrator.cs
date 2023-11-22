@@ -2,12 +2,14 @@
 {
     internal class Administrator : Person, IPrintMenu
     {
-        private int IdCounter = 1;
 
         public Administrator(string username, string password, string userRole, int id) : base(username, password, userRole, id)
         {
         }
+
         List<Person> accounts = new List<Person>();
+        Exchange exchangeRate = new Exchange();
+        
 
         public bool IsValidInput(string input) // Checks if admin creates a username or password with spaces
         {
@@ -36,7 +38,7 @@
             string adminInput;
             string username;
             string password;
-            int id = IdCounter;
+            int id = ID;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[ Add a user to the bank ]");
@@ -75,12 +77,12 @@
                 if (IsValidCharacters(username) && IsValidCharacters(password))
                 {
                     // Create user if both 'no spaces' and 'no invalid character' are true
-                    Person account = new Person(username, password, "User", IdCounter)
+                    Person account = new Person(username, password, "User", ID)
                     {
                         Username = username,
                         Password = password,
                         UserRole = "User",
-                        ID = IdCounter++,
+                        ID = ID++
                     };
                     accounts.Add(account);
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -178,10 +180,7 @@
             }
             ReturnToMenu();
         }
-        public void UpdateExchangeRate()
-        {
-
-        }
+        
         public void PrintMenu()
         {
             Console.WriteLine(@"
@@ -193,11 +192,11 @@
  ");
         }
         private string[] menuOptions = {"[1]Open new account\t\t", "[2]Remove account\t\t",
-        "[3]Show all accounts\t\t", "[4]End\t\t" };
+        "[3]Show all accounts\t\t","[4]Update exchange rate\t\t","[5]Show exchange rate\t\t","[6]Sign out\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
         public override void RunMenu()
         {
-
+            bool isLoggedIn = true;
             while (true)
             {
                 Console.Clear();
@@ -256,12 +255,28 @@
                             ShowAllUsers();
                             break;
                         case 3:
+                            exchangeRate.UpdateExchangeRate(this);
+                            break;
+                            case 4:
+                            exchangeRate.ShowExchangeRate(this);
+                            break;
+                        case 5: // Det alternativ som loggar ut
+                            Console.WriteLine("Logging out...");
+                            isLoggedIn = false; // Sätt isLoggedIn till false för att signalera utloggning
+                            break;
+                        case 6:
                             Console.WriteLine("Thanks for using CodeCats awesome bank!");
                             Environment.Exit(0);
                             break;
                         default:
                             Console.WriteLine("Pick any of the options");
                             break;
+                    }
+                    if (!isLoggedIn)
+                    {
+                        Console.Clear();
+                        LoginManager s = new LoginManager();
+                        s.firstStart();
                     }
 
                     Console.CursorVisible = true;
@@ -270,6 +285,28 @@
                 }
             }
         }
+        //public void LoginAsCreatedUser()
+        //{
+        //    Console.WriteLine("Enter username of the user you want to log in as:");
+        //    string username = Console.ReadLine();
+
+        //    // Hitta användaren i listan över skapade användare
+        //    Person userToLoginAs = accounts.FirstOrDefault(u => u.Username == username);
+
+        //    if (userToLoginAs != null)
+        //    {
+        //        // Logga in som användaren
+        //        Console.WriteLine("Logging in as user: " + username);
+        //        Start start = new Start();
+        //        start.Test();
+        //        // Implementera inloggning som när du loggar in från startklassen
+        //        // Exempelvis: Start.Login(userToLoginAs);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("User not found.");
+        //    }
+        //}
         public void ReturnToMenu()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -281,10 +318,9 @@
         public void PrintTeamTag()
         {
             Console.WriteLine(@"
- ^~^  ,                    \   /\      
-('Y') )                    )  ( ')
-/   \/  Team #1: CodeCats (  /  )
-(\|||/)                     \(__)|");
+  /\_/\                         /\_/\    
+ (>^.^<)                       (>^.^<)
+((¨)(¨))_/ Team #1: CodeCats \_((¨)(¨))");
         }
     }
 }
