@@ -433,6 +433,7 @@ namespace BankSystem
 
                 Console.WriteLine("Do you wish to remain in the loan segement? Please enter YES or NO");
                 string loanChoice = Console.ReadLine();
+                ReturnToMenu();
 
                 if (loanChoice?.ToLower() != "yes")
                 {
@@ -442,7 +443,6 @@ namespace BankSystem
                 
             }
 
-            ReturnToMenu();
 
         }
 
@@ -469,7 +469,7 @@ namespace BankSystem
             Console.Write("]");
             Console.ResetColor();
             Console.WriteLine("");
-            // Add your code for the OpenNewBankAccount here
+            
 
             Console.WriteLine("");
             Console.Write("type");
@@ -504,7 +504,7 @@ namespace BankSystem
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 User b1 = new User("JaneDoe", "********", "User", 101);
                 {
-                    b1.Username = "JaneDoe";  // usernamne is Peter
+                    b1.Username = "JaneDoe";  // username
                     b1.BankAccount = "Savings account"; // userinput for account name
                 };
                 Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
@@ -652,6 +652,7 @@ namespace BankSystem
             Console.ForegroundColor = ConsoleColor.Yellow;
 
             TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
+            DelayTransfer(); //delaying transfer
 
             Console.WriteLine("\n Displaying total amount in chosen accounts after transfer:");
             Console.ResetColor();
@@ -668,7 +669,7 @@ namespace BankSystem
             Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount after transfer
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n Transfer successful");
+            
 
             // Create object of Transaction class
             Transaction transaction = new Transaction();
@@ -736,7 +737,7 @@ namespace BankSystem
 
         public void DelayTransfer() // method to delay transfer
         {
-            Console.WriteLine("Transfer initiated. Please wait...");
+            Console.WriteLine("\n Transfer initiated. Please wait...");
             TimeSpan interval = TimeSpan.FromSeconds(4); // change it to: FromMinutes(15), for  15 minutes, now its 4 second to show that is working
             Thread.Sleep(interval);
             //Transaction completed.
