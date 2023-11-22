@@ -6,8 +6,21 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
+    
+    
     class LoginManager
     {
+        
+        
+        public void firstStart() 
+        {
+            List<Person> personList = new List<Person>();
+            personList.Add(new Person("JohnDoe", "password123", "Admin", 1));
+            personList.Add(new Person("JaneDoe", "pass456", "User", 2));
+            Test(personList);
+
+        }
+
         public int loginAttempts = 3;
         public void PrintMenu()
         {
@@ -25,15 +38,13 @@ namespace BankSystem
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("You have too many attempts wait for 5 minutes");
             Console.ResetColor();
-            Thread.Sleep(300);
+            Thread.Sleep(300000);
             loginAttempts = 3;
         }
 
-        public void Test()
+        public void Test(List<Person> personList)
         {
-            List<Person> personList = new List<Person>();
-            personList.Add(new Person("JohnDoe", "password123", "Admin", 1));
-            personList.Add(new Person("JaneDoe", "pass456", "User", 2));
+            
             
 
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -41,7 +52,7 @@ namespace BankSystem
             if (loginAttempts == 0)
             {
                 lockout();
-                Thread.Sleep(300000);
+                
             }
             if (loginAttempts <= 2)
             {
@@ -91,21 +102,21 @@ namespace BankSystem
                     Console.WriteLine("You entered the wrong password you have: "+ loginAttempts+" Attepts left");
                     Thread.Sleep(4000);
                     Console.Clear();
-                    Test();
+                    Test(personList);
                 }
                 else if (user.Username != username && user.Password == password)
                 {
                     Console.WriteLine("You entered the wrong password you have: "+ loginAttempts+ " Attepts left");
                     Thread.Sleep(4000);
                     Console.Clear();
-                    Test();
+                    Test(personList);
                 }
                 
                 
 
             }
             Console.Clear();
-            Test();
+            Test(personList);
             return false;
             
         }
