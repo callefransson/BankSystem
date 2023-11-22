@@ -583,12 +583,17 @@ namespace BankSystem
 
             users.Add(userA); //adds users to list
             users.Add(userB);
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
 
             foreach (var account in userA.userAccounts)
             {
+                Console.WriteLine("List of Anna's accounts:");
                 Console.WriteLine(account.AccountNumber); 
                 Console.WriteLine();
             }
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             string userInput = Console.ReadLine();    
             int userNumber = Int32.Parse(userInput);
 
@@ -596,21 +601,26 @@ namespace BankSystem
             userNumber = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("\n Choose which account to transfer money to:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
 
             foreach (var account in userB.userAccounts)
             {
+                Console.WriteLine("List of Ander's accounts:");
                 Console.WriteLine(account.AccountNumber);
                 Console.WriteLine();
             }
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             string userInput1 = Console.ReadLine();
-            int userNumber1 = Int32.Parse(userInput1);
 
             Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == userInput1); //finds user account to transfer to
-            userNumber1 = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("\n Displaying total amount in chosen accounts before transfer:");
+            Console.WriteLine("Total amount in Anna's account:");
             Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine("Total amount in Ander's account:");
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount before transfer
 
             Console.WriteLine("\n Choose amount of money to transfer:");
@@ -618,10 +628,11 @@ namespace BankSystem
             int amountToTransfer = Int32.Parse(userInput2);
 
             TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
-            amountToTransfer = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Displaying total amount in chosen accounts after transfer");
+            Console.WriteLine("Total amount in Anna's account:");
             Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine("Total amount in Ander's account:");
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
             Console.WriteLine("Transfer successful");
 
@@ -669,7 +680,7 @@ namespace BankSystem
 
             userAccounts.Add(newAccount);
         }
-        public static void TransferMoney(Accounts accountA, Accounts accountB, decimal amountToTransfer) //method for transferring money for TransferToUser method
+        public static void TransferMoney(Accounts accountA, Accounts accountB, int amountToTransfer) //method for transferring money for TransferToUser method
         {
             accountA.TotalAmount -= amountToTransfer;
             accountB.TotalAmount += amountToTransfer;
