@@ -276,7 +276,7 @@
                     {
                         Console.Clear();
                         LoginManager s = new LoginManager();
-                        s.Test();
+                        s.firstStart();
                     }
 
                     Console.CursorVisible = true;
