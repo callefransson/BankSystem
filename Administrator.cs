@@ -1,40 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace BankSystem
+﻿namespace BankSystem
 {
     internal class Administrator : Person, IPrintMenu
     {
-        public int EmployeeId { get; set; }
-        public int Id { get; set; }
 
-        private int IdCounter = 0;
-
-        public Administrator(string username, string password) : base(username, password)
+        public Administrator(string username, string password, string userRole, int id) : base(username, password, userRole, id)
         {
         }
-        List<Person> accounts = new List<Person>();
-        public void AddUser()
-        {
-            Console.Clear();
 
-            bool isCorrect = true;
+        List<Person> accounts = new List<Person>();
+        Exchange exchangeRate = new Exchange();
+        
+
+        public bool IsValidInput(string input) // Checks if admin creates a username or password with spaces
+        {
+            return !input.Contains(" ");
+        }
+        public bool IsValidCharacters(string input)
+        {
+            //Creating a array with chars
+            char[] invalidCharacters = { '!', '"', '#', '%', '&', '/', '(', ')', '=', '?', '@', '$', '{', '[', ']', '}', '-', '_', '*', '|' };
+
+            foreach (char c in input)
+            {
+                //Check if it is an invalid character
+                if (invalidCharacters.Contains(c))
+                {
+                    return false; //Return false if an invalid character is found
+                }
+            }
+
+            return true; // If no invalid character is found
+        }
+        public void AddUser() // Method for adding users to the bank
+        {
+            Console.Clear(); // Clears any code from before
+
             string adminInput;
-            string userName;
+            string username;
             string password;
-            Console.WriteLine("Add a user to the bank");
+            int id = ID;
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[ Add a user to the bank ]");
+            Console.ResetColor();
+
             do
             {
-                Console.WriteLine("Create a username for the user");
-                userName = Console.ReadLine();
-                Console.WriteLine("Create a password for the user");
+                Console.WriteLine("Create a username");
+                username = Console.ReadLine();
+                Console.WriteLine("Create a password");
                 password = Console.ReadLine();
-
                 Console.WriteLine("Are you sure you would like to create this user?\n1 = Yes, create user\n2 = No, cancel");
 
                 adminInput = Console.ReadLine();
@@ -42,93 +57,130 @@ namespace BankSystem
                 switch (adminInput)
                 {
                     case "1":
-                        Console.WriteLine("You have now created a user!");
                         break;
                     case "2":
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Please re-enter username and password.");
-                        continue;
-                    default:                        
+                        Console.ResetColor();
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid input. Please select 1 or 2.");
+                        Console.ResetColor();
                         break;
                 }
 
-            } while (adminInput != "1" || adminInput != "2");
+            } while (adminInput != "1");
 
-            if (isCorrect && !string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(password))
+            if (IsValidInput(username) && IsValidInput(password))
             {
-                Person account = new Person(userName,password)
+                if (IsValidCharacters(username) && IsValidCharacters(password))
                 {
-                    Username = userName,
-                    Password = password,
-                    ID = IdCounter++,
-                };
-                accounts.Add(account);
-                Console.WriteLine("You have now created a new user");
-            }
-            else
-            {
-                Console.WriteLine("User creation canceled.");
-            }
-
-            Console.WriteLine("Press any key to return to the menu");
-            Console.ReadKey();
-        }
-        public void RemoveUser()
-        {
-            int adminPick;
-
-            Console.WriteLine("Enter the id of which user you would like to remove from the bank");
-            ShowAllUsers();
-            //foreach(Person allAccounts in accounts)
-            //{
-            //    if(allAccounts == null)
-            //    {
-            //        Console.WriteLine("There are no accounts yet");
-            //        continue;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Id: {0} Username: {1} ", allAccounts.ID,allAccounts.Username);
-            //    }
-            //}
-                while (true)
-                {
-                    string? pick = Console.ReadLine();
-
-                    if (int.TryParse(pick, out adminPick))
+                    // Create user if both 'no spaces' and 'no invalid character' are true
+                    Person account = new Person(username, password, "User", ID)
                     {
-                        break;
-                    }
-                    else if(adminPick >= 0 && adminPick < accounts.Count)
-                    {
-                        Console.WriteLine("Please pick the right number in the list");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please type in a number");
-                    }
-                }
-        }
-        public void ShowAllUsers()
-        {
-            Console.WriteLine("Show all users");
-            foreach (Person allAccounts in accounts)
-            {
-                if (allAccounts == null)
-                {
-                    Console.WriteLine("There are no accounts yet");
-                    continue;
+                        Username = username,
+                        Password = password,
+                        UserRole = "User",
+                        ID = ID++
+                    };
+                    accounts.Add(account);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("User with username: {0} has been created!", account.Username);
+                    Console.ResetColor();
                 }
                 else
                 {
-                    Console.WriteLine("Id: {0} Username: {1} ", allAccounts.ID, allAccounts.Username);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("User creation cancelled. Can't have any special characters in username or password");
+                    Console.WriteLine("Invalid characters are (!, #, ¤, %, &, /, (, ), =, ?, @, £, $, €, {, [, ], }, -, _, *, |");
+                    Console.ResetColor();
                 }
             }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("User creation canceled. Cant have any spaces in username or password");
+                Console.ResetColor();
+            }
+            Console.WriteLine("");
+            ReturnToMenu();
         }
-        public void UpdateExchangeRate()
+        public void RemoveUser()
         {
+            Console.Clear();
+            if (accounts.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No user in the list");
+                Console.ResetColor();
+                Console.WriteLine("");
+                ReturnToMenu();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("[ Remove a user from the bank ]");
+                Console.ResetColor();
+                foreach (Person user in accounts)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
+                    Console.ResetColor();
+                }
+            }
 
+            Console.WriteLine("Type the username that you would like to remove from the bank");
+            bool userRemoved = false;
+
+            while (!userRemoved)
+            {
+                string removeUser = Console.ReadLine();
+                Person userToRemove = accounts.Find(user => user.Username == removeUser);
+
+                if (userToRemove != null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("User removed successfully!");
+                    Console.ResetColor();
+                    accounts.Remove(userToRemove);
+                    userRemoved = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("User not found with that username. Please try again.");
+                    Console.ResetColor();
+                }
+            }
+            ReturnToMenu();
         }
+        public void ShowAllUsers()
+        {
+            Console.Clear();
+
+            if (accounts.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No user in the list");
+                Console.ResetColor();
+                ReturnToMenu();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("[ Show all users ]");
+                Console.ResetColor();
+                foreach (Person user in accounts)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
+                    Console.ResetColor();
+                }
+            }
+            ReturnToMenu();
+        }
+        
         public void PrintMenu()
         {
             Console.WriteLine(@"
@@ -140,11 +192,11 @@ namespace BankSystem
  ");
         }
         private string[] menuOptions = {"[1]Open new account\t\t", "[2]Remove account\t\t",
-        "[3]Show all accounts\t\t", "[4]End\t\t" };
+        "[3]Show all accounts\t\t","[4]Update exchange rate\t\t","[5]Show exchange rate\t\t","[6]Sign out\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
         public override void RunMenu()
         {
-
+            bool isLoggedIn = true;
             while (true)
             {
                 Console.Clear();
@@ -202,9 +254,29 @@ namespace BankSystem
                         case 2:
                             ShowAllUsers();
                             break;
+                        case 3:
+                            exchangeRate.UpdateExchangeRate(this);
+                            break;
+                            case 4:
+                            exchangeRate.ShowExchangeRate(this);
+                            break;
+                        case 5: // Det alternativ som loggar ut
+                            Console.WriteLine("Logging out...");
+                            isLoggedIn = false; // Sätt isLoggedIn till false för att signalera utloggning
+                            break;
+                        case 6:
+                            Console.WriteLine("Thanks for using CodeCats awesome bank!");
+                            Environment.Exit(0);
+                            break;
                         default:
                             Console.WriteLine("Pick any of the options");
                             break;
+                    }
+                    if (!isLoggedIn)
+                    {
+                        Console.Clear();
+                        LoginManager s = new LoginManager();
+                        s.Test();
                     }
 
                     Console.CursorVisible = true;
@@ -213,13 +285,42 @@ namespace BankSystem
                 }
             }
         }
+        //public void LoginAsCreatedUser()
+        //{
+        //    Console.WriteLine("Enter username of the user you want to log in as:");
+        //    string username = Console.ReadLine();
+
+        //    // Hitta användaren i listan över skapade användare
+        //    Person userToLoginAs = accounts.FirstOrDefault(u => u.Username == username);
+
+        //    if (userToLoginAs != null)
+        //    {
+        //        // Logga in som användaren
+        //        Console.WriteLine("Logging in as user: " + username);
+        //        Start start = new Start();
+        //        start.Test();
+        //        // Implementera inloggning som när du loggar in från startklassen
+        //        // Exempelvis: Start.Login(userToLoginAs);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("User not found.");
+        //    }
+        //}
+        public void ReturnToMenu()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Press any key to return to the menu");
+            Console.ResetColor();
+            Console.ReadKey(true);
+            RunMenu();
+        }
         public void PrintTeamTag()
         {
             Console.WriteLine(@"
- ^~^  ,                    \   /\      
-('Y') )                    )  ( ')
-/   \/  Team #1: CodeCats (  /  )
-(\|||/)                     \(__)|");
+  /\_/\                         /\_/\    
+ (>^.^<)                       (>^.^<)
+((¨)(¨))_/ Team #1: CodeCats \_((¨)(¨))");
         }
     }
 }
