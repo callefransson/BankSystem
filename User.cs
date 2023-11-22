@@ -589,9 +589,11 @@ namespace BankSystem
                 Console.WriteLine();
             }
             Console.ResetColor();
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.White;
             string userInput = Console.ReadLine();    
             int userNumber = Int32.Parse(userInput);
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == userInput); //finds user account to transfer from
 
@@ -606,9 +608,11 @@ namespace BankSystem
                 Console.WriteLine();
             }
             Console.ResetColor();
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.White;
 
             string userInput1 = Console.ReadLine();
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == userInput1); //finds user account to transfer to
 
@@ -618,35 +622,39 @@ namespace BankSystem
             Console.WriteLine("Total amount in Anna's account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine(userAAcc.TotalAmount + " SEK");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Ander's account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(userBAcc.TotalAmount); //shows total amount before transfer
+            Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount before transfer
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
 
             Console.WriteLine("\n Choose amount of money to transfer:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
             string userInput2 = Console.ReadLine();
             int amountToTransfer = Int32.Parse(userInput2);
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
 
-            Console.WriteLine("Displaying total amount in chosen accounts after transfer");
+            Console.WriteLine("Displaying total amount in chosen accounts after transfer:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Anna's account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(userAAcc.TotalAmount);
+            Console.WriteLine(userAAcc.TotalAmount + " SEK");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Ander's account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
+            Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount after transfer
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Transfer successful");
