@@ -307,7 +307,7 @@
         //        Console.WriteLine("User not found.");
         //    }
         //}
-        public void ReturnToMenu()
+        public override void ReturnToMenu()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Press any key to return to the menu");

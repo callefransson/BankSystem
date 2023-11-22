@@ -20,10 +20,9 @@ namespace BankSystem
         public decimal Balance { get; set; }
         public int CreditScore { get; set; } // are we still going to use?
         public string BankAccount { get; set; }
+         
 
-
-        List<Transaction> transactionsList = new List<Transaction>();
-
+        List<Transaction> transactionsList = new List<Transaction>(); //creates a list of transactions for ShowAllTransactions method
 
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
 
@@ -35,14 +34,10 @@ namespace BankSystem
 
 
         // User constructor and base (inheritance) from Person constructor.
-        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) 
-
-        {
-
-        }
+        public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) { }
 
 
-        public override void RunMenu() // method to run menu, (putting this method in Person class later)
+        public override void RunMenu() // method to run menu
         {
             while (true) // if condition is true, run a loop
             {
@@ -225,7 +220,7 @@ namespace BankSystem
                 Console.WriteLine(); // separate each account's output
             }
 
-            Console.ReadLine(); // Wait for user input
+            ReturnToMenu();
         }
 
         //calculates the balance in the specified currency using the oreignExchange method (Exchange rate) 
@@ -444,10 +439,11 @@ namespace BankSystem
                     loanProcess = false;
                     break; // Exit loop
                 }
+                
             }
 
-            Console.ReadLine(); // Wait for user input
-            
+            ReturnToMenu();
+
         }
 
         private void OpenNewBankAccount()
@@ -545,7 +541,7 @@ namespace BankSystem
             {
                 User b1 = new User("JaneDoe", "********", "User", 101);
                 {
-                    b1.Username = "JaneDoe";  // usernamne is Peter
+                    b1.Username = "JaneDoe";  // username
                     Console.WriteLine("");
                     Console.Write("Write the name of the new bank account: ");
                     b1.BankAccount = Console.ReadLine(); // userinput for account name
@@ -562,7 +558,7 @@ namespace BankSystem
                 newAccount.Username, newAccount.ID, newAccount.BankAccount);
                 Console.WriteLine(createAccount.Count() + " new account has been created \nThe currency = € //bank support"); // output + count method
                 Console.WriteLine("------------------------------");
-                Console.ReadLine(); // Wait for user input
+                ReturnToMenu();
             }
         }
 
@@ -571,8 +567,7 @@ namespace BankSystem
             Console.Clear();
             Console.WriteLine("\n[Transfer to second account]");
             // Add your code for the fourth choice here
-            // Add withdraw and deposit 
-            Console.ReadLine(); // Wait for user input
+            ReturnToMenu();
         }
 
         private void TransferToUser()
@@ -582,25 +577,30 @@ namespace BankSystem
             Console.WriteLine("\n [Transfer to user]");
             Console.WriteLine("\n Choose which account to transfer money from:");
 
-            User userA = new User("Anna", "Anna123", "user", ID); //creates users
+            User userA = new User("JaneDoe", "Anna123", "user", ID); //creates users
             userA.NewAccount(5);
+            userA.NewAccount(7);
+            userA.NewAccount(8);
 
             User userB = new User("Anders", "Anders123", "user", ID);
             userB.NewAccount(2);
+            userB.NewAccount(3);
+            userB.NewAccount(6);
 
             users.Add(userA); //adds users to list
             users.Add(userB);
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
 
+            Console.WriteLine("List of JaneDoe's accounts:");
             foreach (var account in userA.userAccounts)
             {
-                Console.WriteLine("List of Anna's accounts:");
-                Console.WriteLine(account.AccountNumber); 
+                Console.Write(account.AccountNumber); 
                 Console.WriteLine();
             }
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
             string userInput = Console.ReadLine();    
             int userNumber = Int32.Parse(userInput);
             Console.ResetColor();
@@ -612,15 +612,15 @@ namespace BankSystem
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
 
+            Console.WriteLine("List of Ander's accounts:");
             foreach (var account in userB.userAccounts)
             {
-                Console.WriteLine("List of Ander's accounts:");
-                Console.WriteLine(account.AccountNumber);
+                Console.Write(account.AccountNumber);
                 Console.WriteLine();
             }
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.White;
-
+            Console.WriteLine();
             string userInput1 = Console.ReadLine();
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -630,7 +630,7 @@ namespace BankSystem
             Console.WriteLine("\n Displaying total amount in chosen accounts before transfer:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Total amount in Anna's account:");
+            Console.WriteLine("Total amount in JaneDoe's account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userAAcc.TotalAmount + " SEK");
@@ -653,10 +653,10 @@ namespace BankSystem
 
             TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
 
-            Console.WriteLine("Displaying total amount in chosen accounts after transfer:");
+            Console.WriteLine("\n Displaying total amount in chosen accounts after transfer:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Total amount in Anna's account:");
+            Console.WriteLine("Total amount in JaneDoe's account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userAAcc.TotalAmount + " SEK");
@@ -668,7 +668,7 @@ namespace BankSystem
             Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount after transfer
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Transfer successful");
+            Console.WriteLine("\n Transfer successful");
 
             // Create object of Transaction class
             Transaction transaction = new Transaction();
@@ -678,7 +678,7 @@ namespace BankSystem
 
             transactionsList.Add(transaction);
 
-            Console.ReadLine(); // Wait for user input
+            ReturnToMenu();
         }
 
         private void ShowAllTransactions()
@@ -691,7 +691,7 @@ namespace BankSystem
                 Console.WriteLine($"\n[Transactions]:\nFrom account: {transaction.FromUser}\nTo account: {transaction.ToUser}\nAmount: {transaction.TotalAmount}");
             }
 
-            Console.ReadLine(); // Wait for user input
+            ReturnToMenu();
         }
 
         private void EndProgram()
@@ -737,10 +737,18 @@ namespace BankSystem
         public void DelayTransfer() // method to delay transfer
         {
             Console.WriteLine("Transfer initiated. Please wait...");
-            TimeSpan interval = TimeSpan.FromSeconds(4); // change it to: FromMinutes(15), for  15 minutesm, now its 4 second to show that is working
+            TimeSpan interval = TimeSpan.FromSeconds(4); // change it to: FromMinutes(15), for  15 minutes, now its 4 second to show that is working
             Thread.Sleep(interval);
             //Transaction completed.
-            Console.WriteLine("Transfer Successful");
+            Console.WriteLine("Transfer successful");
+        }
+        public override void ReturnToMenu()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Press any key to return to the menu");
+            Console.ResetColor();
+            Console.ReadKey(true);
+            RunMenu();
         }
     }
 }
