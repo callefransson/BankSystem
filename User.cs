@@ -598,7 +598,6 @@ namespace BankSystem
             int userNumber = Int32.Parse(userInput);
 
             Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == userInput); //finds user account to transfer from
-            userNumber = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("\n Choose which account to transfer money to:");
             Console.ResetColor();
