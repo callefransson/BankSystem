@@ -589,6 +589,7 @@ namespace BankSystem
             int userNumber = Int32.Parse(userInput);
 
             Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == userInput); //finds user account to transfer from
+            userNumber = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("\n Choose which account to transfer money to:");
 
@@ -602,6 +603,7 @@ namespace BankSystem
             int userNumber1 = Int32.Parse(userInput1);
 
             Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == userInput1); //finds user account to transfer to
+            userNumber1 = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("\n Displaying total amount in chosen accounts before transfer:");
             Console.WriteLine(userAAcc.TotalAmount);
@@ -612,6 +614,7 @@ namespace BankSystem
             int amountToTransfer = Int32.Parse(userInput2);
 
             TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
+            amountToTransfer = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Displaying total amount in chosen accounts after transfer");
             Console.WriteLine(userAAcc.TotalAmount);
