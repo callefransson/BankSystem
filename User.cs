@@ -23,7 +23,8 @@ namespace BankSystem
 
 
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
-        List<User> showAccounts = new List<User>();
+        List<User> showAccounts = new List<User>(); // list in ShowbankAccountsmethod();
+        Dictionary<string, User> createAccount = new Dictionary<string, User>(); // Dictonary in OpenNewBankAccounts list
 
 
         // User constructor and base (inheritance) from Person constructor.
@@ -181,7 +182,8 @@ namespace BankSystem
             };
 
             //make a list of all user accounts
-           
+            //List<User> showAccounts = new List<User>(); put it outside under properties.
+
             showAccounts.Add(b1); // adding account 1
             showAccounts.Add(b2); // adding account 2
             showAccounts.Add(b3); // adding account 3
@@ -496,9 +498,9 @@ namespace BankSystem
                 Console.WriteLine("           Welcome! \nWe have a yearly 1% savings interest rate");
                 Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                User b1 = new User("Peter", "********", "User", 101);
+                User b1 = new User("JaneDoe", "********", "User", 101);
                 {
-                    b1.Username = "Peter";  // usernamne is Peter
+                    b1.Username = "JaneDoe";  // usernamne is Peter
                     b1.BankAccount = "Savings account"; // userinput for account name
                 };
                 Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
@@ -532,21 +534,21 @@ namespace BankSystem
             }
             else if (userInput == 2) // if user type 2 and enter:
             {
-                User b1 = new User("Peter", "********", "User", 101);
+                User b1 = new User("JaneDoe", "********", "User", 101);
                 {
-                    b1.Username = "Peter";  // usernamne is Peter
+                    b1.Username = "JaneDoe";  // usernamne is Peter
                     Console.WriteLine("");
                     Console.Write("Write the name of the new bank account: ");
                     b1.BankAccount = Console.ReadLine(); // userinput for account name
                 };
 
-                // create a dictonary string "Peter" and class User.
-                Dictionary<string, User> createAccount = new Dictionary<string, User>();
+                // create a dictonary string "JaneDoe" and class User.
+                //Dictionary<string, User> createAccount = new Dictionary<string, User>();
                 createAccount.Add(b1.Username, b1); // strnig + class
 
                 Console.WriteLine("");
                 Console.WriteLine("***** Bank Account info *****");  // output for created acccount
-                User newAccount = createAccount["Peter"];
+                User newAccount = createAccount["JaneDoe"];
                 Console.WriteLine("{0} ID: {1} \n New bank Account = {2} \n",
                 newAccount.Username, newAccount.ID, newAccount.BankAccount);
                 Console.WriteLine(createAccount.Count() + " new account has been created \nThe currency = € //bank support"); // output + count method
