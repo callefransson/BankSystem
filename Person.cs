@@ -24,9 +24,11 @@ namespace BankSystem
         }
 
         public virtual void RunMenu() { }
+        public virtual void ReturnToMenu() { }
 
 
-        
+
+
 
 
     }
