@@ -567,7 +567,9 @@ namespace BankSystem
         private void TransferToUser()
         {
             Console.Clear();
-            Console.WriteLine("\n[Transfer to user");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n [Transfer to user]");
+            Console.WriteLine("\n Choose which account to transfer money from:");
 
             User userA = new User("Anna", "Anna123", "user", ID); //creates users
             userA.NewAccount(5);
@@ -578,23 +580,43 @@ namespace BankSystem
             users.Add(userA); //adds users to list
             users.Add(userB);
 
-            foreach (var account in userB.userAccounts)
+            foreach (var account in userA.userAccounts)
             {
                 Console.WriteLine(account.AccountNumber); 
                 Console.WriteLine();
             }
+            string userInput = Console.ReadLine();    
+            int userNumber = Int32.Parse(userInput);
 
-            Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == "1231234565"); //finds user account to transfer from
+            Accounts userAAcc = userA.userAccounts.Find(x => x.AccountNumber == userInput); //finds user account to transfer from
 
-            Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == "1231234562"); //finds user account to transfer to
+            Console.WriteLine("\n Choose which account to transfer money to:");
 
+            foreach (var account in userB.userAccounts)
+            {
+                Console.WriteLine(account.AccountNumber);
+                Console.WriteLine();
+            }
+
+            string userInput1 = Console.ReadLine();
+            int userNumber1 = Int32.Parse(userInput1);
+
+            Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == userInput1); //finds user account to transfer to
+
+            Console.WriteLine("\n Displaying total amount in chosen accounts before transfer:");
             Console.WriteLine(userAAcc.TotalAmount);
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount before transfer
 
-            TransferMoney(userAAcc, userBAcc, 500); //transferring 500 from user A to user B
+            Console.WriteLine("\n Choose amount of money to transfer:");
+            string userInput2 = Console.ReadLine();
+            int amountToTransfer = Int32.Parse(userInput2);
 
+            TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
+
+            Console.WriteLine("Displaying total amount in chosen accounts after transfer");
             Console.WriteLine(userAAcc.TotalAmount);
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
+            Console.WriteLine("Transfer successful");
 
             Console.ReadLine(); // Wait for user input
         }
