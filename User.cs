@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BankSystem
 {
 
-    internal class User : Person, ILoans
+    internal class User : Person, ILoans, IDelay
 
     {
         //menu options, (how it will look)
@@ -526,6 +526,7 @@ namespace BankSystem
                         Console.WriteLine("");
                         Console.WriteLine("*************Savings account info***************");
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        DelayTransfer(); // method to delay transfer 
                         Console.WriteLine(userInput1 + "€ has been deposit to your savings account");
                         Console.WriteLine();
                         Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
@@ -731,6 +732,15 @@ namespace BankSystem
             accountA.TotalAmount -= amountToTransfer;
             accountB.TotalAmount += amountToTransfer;
 
+        }
+
+        public void DelayTransfer() // method to delay transfer
+        {
+            Console.WriteLine("Transfer initiated. Please wait...");
+            TimeSpan interval = TimeSpan.FromSeconds(4); // change it to: FromMinutes(15), for  15 minutesm, now its 4 second to show that is working
+            Thread.Sleep(interval);
+            //Transaction completed.
+            Console.WriteLine("Transfer Successful");
         }
     }
 }
