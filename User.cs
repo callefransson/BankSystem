@@ -23,6 +23,7 @@ namespace BankSystem
 
 
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
+        List<User> showAccounts = new List<User>();
 
 
         // User constructor and base (inheritance) from Person constructor.
@@ -155,40 +156,40 @@ namespace BankSystem
             // Add your code for the method here:
 
             // objects for creating user accounts and balance (instans)
-            User b1 = new User("Peter", "***", "User", 101)
+            User b1 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Main Account   ",
                 Balance = 100000
             };
 
-            User b2 = new User("Peter", "***", "User", 101)
+            User b2 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Savings Account",
                 Balance = 300000
             };
 
-            User b3 = new User("Peter", "***", "User", 101)
+            User b3 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Utility Account ",
                 Balance = 4000
             };
 
-            User b4 = new User("Peter", "***", "User", 101)
+            User b4 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Index Account  ",
                 Balance = 3000
             };
 
             //make a list of all user accounts
-            List<User> accounts = new List<User>();
-            accounts.Add(b1); // adding account 1
-            accounts.Add(b2); // adding account 2
-            accounts.Add(b3); // adding account 3
-            accounts.Add(b4); // adding account 4
+           
+            showAccounts.Add(b1); // adding account 1
+            showAccounts.Add(b2); // adding account 2
+            showAccounts.Add(b3); // adding account 3
+            showAccounts.Add(b4); // adding account 4
 
             Console.WriteLine(""); // nicer looking
                                    // method to count how many accounts the user has
-            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here                                                                                                      // Get the current date and time
+            Console.WriteLine("There are a total of :" + " " + showAccounts.Count + " " + " bank accounts"); // and write it out here                                                                                                      // Get the current date and time
             DateTime currentTime = DateTime.Now;
             // Display the result
             Console.Write("Current Time:  ");
@@ -197,7 +198,7 @@ namespace BankSystem
             Console.ResetColor();
             Console.WriteLine(""); // nicer looking
 
-            foreach (var account in accounts) //foreach loop to display accounts
+            foreach (var account in showAccounts) //foreach loop to display accounts
             {
                 Console.WriteLine(""); // nicer looking
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
