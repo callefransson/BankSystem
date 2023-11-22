@@ -635,6 +635,14 @@ namespace BankSystem
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
             Console.WriteLine("Transfer successful");
 
+            // Create object of Transaction class
+            Transaction transaction = new Transaction();
+            transaction.FromUser = userA;
+            transaction.ToUser = userB;
+            transaction.TotalAmount = 500;
+
+            transactionsList.Add(transaction);
+
             Console.ReadLine(); // Wait for user input
         }
 
@@ -642,7 +650,12 @@ namespace BankSystem
         {
             Console.Clear();
             Console.WriteLine("\n[Showing all transactions]");
-            // Add your code for the sixth choice here ( a list)
+            
+            foreach (Transaction transaction in transactionsList) 
+            {
+                Console.WriteLine($"From account: {transaction.FromUser.Name}, To account: {transaction.ToUser.Name}, Amount transfered: {transaction.TotalAmount}");
+            }
+
             Console.ReadLine(); // Wait for user input
         }
 

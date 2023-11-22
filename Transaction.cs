@@ -10,5 +10,6 @@ namespace BankSystem
     {
         public string FromUser { get; set; }
         public string ToUser { get; set; }
+        public int TotalAmount { get; set; }
     }
 }
