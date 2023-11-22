@@ -637,8 +637,8 @@ namespace BankSystem
 
             // Create object of Transaction class
             Transaction transaction = new Transaction();
-            transaction.FromUser = userA;
-            transaction.ToUser = userB;
+            transaction.FromUser = userA.Username;
+            transaction.ToUser = userB.Username;
             transaction.TotalAmount = 500;
 
             transactionsList.Add(transaction);
@@ -653,7 +653,7 @@ namespace BankSystem
             
             foreach (Transaction transaction in transactionsList) 
             {
-                Console.WriteLine($"From account: {transaction.FromUser.Name}, To account: {transaction.ToUser.Name}, Amount transfered: {transaction.TotalAmount}");
+                Console.WriteLine($"\n[Transactions]:\nFrom account: {transaction.FromUser}\nTo account: {transaction.ToUser}\nAmount: {transaction.TotalAmount}");
             }
 
             Console.ReadLine(); // Wait for user input
