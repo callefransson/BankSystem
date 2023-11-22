@@ -26,7 +26,12 @@ namespace BankSystem
 
 
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
+
+        List<User> showAccounts = new List<User>(); // list in ShowbankAccountsmethod();
+        Dictionary<string, User> createAccount = new Dictionary<string, User>(); // Dictonary in OpenNewBankAccounts list
+
         public List<User> users = new List<User>();  // creates a list of users
+
 
 
         // User constructor and base (inheritance) from Person constructor.
@@ -160,40 +165,41 @@ namespace BankSystem
             // Add your code for the method here:
 
             // objects for creating user accounts and balance (instans)
-            User b1 = new User("Peter", "***", "User", 101)
+            User b1 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Main Account   ",
                 Balance = 100000
             };
 
-            User b2 = new User("Peter", "***", "User", 101)
+            User b2 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Savings Account",
                 Balance = 300000
             };
 
-            User b3 = new User("Peter", "***", "User", 101)
+            User b3 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Utility Account ",
                 Balance = 4000
             };
 
-            User b4 = new User("Peter", "***", "User", 101)
+            User b4 = new User("JaneDoe", "***", "User", 101)
             {
                 BankAccount = "Index Account  ",
                 Balance = 3000
             };
 
             //make a list of all user accounts
-            List<User> accounts = new List<User>();
-            accounts.Add(b1); // adding account 1
-            accounts.Add(b2); // adding account 2
-            accounts.Add(b3); // adding account 3
-            accounts.Add(b4); // adding account 4
+            //List<User> showAccounts = new List<User>(); put it outside under properties.
+
+            showAccounts.Add(b1); // adding account 1
+            showAccounts.Add(b2); // adding account 2
+            showAccounts.Add(b3); // adding account 3
+            showAccounts.Add(b4); // adding account 4
 
             Console.WriteLine(""); // nicer looking
                                    // method to count how many accounts the user has
-            Console.WriteLine("There are a total of :" + " " + accounts.Count + " " + " bank accounts"); // and write it out here                                                                                                      // Get the current date and time
+            Console.WriteLine("There are a total of :" + " " + showAccounts.Count + " " + " bank accounts"); // and write it out here                                                                                                      // Get the current date and time
             DateTime currentTime = DateTime.Now;
             // Display the result
             Console.Write("Current Time:  ");
@@ -202,7 +208,7 @@ namespace BankSystem
             Console.ResetColor();
             Console.WriteLine(""); // nicer looking
 
-            foreach (var account in accounts) //foreach loop to display accounts
+            foreach (var account in showAccounts) //foreach loop to display accounts
             {
                 Console.WriteLine(""); // nicer looking
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -500,9 +506,9 @@ namespace BankSystem
                 Console.WriteLine("           Welcome! \nWe have a yearly 1% savings interest rate");
                 Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                User b1 = new User("Peter", "********", "User", 101);
+                User b1 = new User("JaneDoe", "********", "User", 101);
                 {
-                    b1.Username = "Peter";  // usernamne is Peter
+                    b1.Username = "JaneDoe";  // usernamne is Peter
                     b1.BankAccount = "Savings account"; // userinput for account name
                 };
                 Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
@@ -536,21 +542,21 @@ namespace BankSystem
             }
             else if (userInput == 2) // if user type 2 and enter:
             {
-                User b1 = new User("Peter", "********", "User", 101);
+                User b1 = new User("JaneDoe", "********", "User", 101);
                 {
-                    b1.Username = "Peter";  // usernamne is Peter
+                    b1.Username = "JaneDoe";  // usernamne is Peter
                     Console.WriteLine("");
                     Console.Write("Write the name of the new bank account: ");
                     b1.BankAccount = Console.ReadLine(); // userinput for account name
                 };
 
-                // create a dictonary string "Peter" and class User.
-                Dictionary<string, User> createAccount = new Dictionary<string, User>();
+                // create a dictonary string "JaneDoe" and class User.
+                //Dictionary<string, User> createAccount = new Dictionary<string, User>();
                 createAccount.Add(b1.Username, b1); // strnig + class
 
                 Console.WriteLine("");
                 Console.WriteLine("***** Bank Account info *****");  // output for created acccount
-                User newAccount = createAccount["Peter"];
+                User newAccount = createAccount["JaneDoe"];
                 Console.WriteLine("{0} ID: {1} \n New bank Account = {2} \n",
                 newAccount.Username, newAccount.ID, newAccount.BankAccount);
                 Console.WriteLine(createAccount.Count() + " new account has been created \nThe currency = € //bank support"); // output + count method
