@@ -20,6 +20,8 @@ namespace BankSystem
         public int CreditScore { get; set; }
         public string BankAccount { get; set; }
 
+        List<Transaction> transactionsList = new List<Transaction>();
+
         public User(string userRole, double personalNumber) : base(userRole, personalNumber)
         {
 
