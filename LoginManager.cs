@@ -12,11 +12,12 @@ namespace BankSystem
         public void PrintMenu()
         {
             Console.WriteLine(@"
-▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-██ ████▀▄▄▀█ ▄▄▄██▄██ ▄▄▀████ ▄▀▄ █ ▄▄█ ▄▄▀█ ██ 
-██ ████ ██ █ █▄▀██ ▄█ ██ ████ █ █ █ ▄▄█ ██ █ ██ 
-██ ▀▀ ██▄▄██▄▄▄▄█▄▄▄█▄██▄████ ███ █▄▄▄█▄██▄██▄▄▄
-▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀");
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+██░████▀▄▄▀█░▄▄▄██▄██░▄▄▀████░▄▀▄░█░▄▄█░▄▄▀█░██░██
+██░████░██░█░█▄▀██░▄█░██░████░█░█░█░▄▄█░██░█░██░██
+██░▀▀░██▄▄██▄▄▄▄█▄▄▄█▄██▄████░███░█▄▄▄█▄██▄██▄▄▄██
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+");
         }
 
         public void lockout()
@@ -45,7 +46,7 @@ namespace BankSystem
             }
             if (loginAttempts <= 2)
             {
-                Console.WriteLine("You entered the wrong credentials you have: " + loginAttempts + " Attepts left");
+                Console.WriteLine("You entered the wrong credentials. You have: " + loginAttempts + " attempts left");
             }
             Console.ResetColor();
             Console.Write("Enter username: ");
@@ -88,14 +89,14 @@ namespace BankSystem
                 else if(user.Username == username && user.Password != password)
                 {
                     
-                    Console.WriteLine("You entered the wrong password you have: "+ loginAttempts+" Attepts left");
+                    Console.WriteLine("You entered the wrong password. You have: "+ loginAttempts+" attempts left");
                     Thread.Sleep(4000);
                     Console.Clear();
                     Test();
                 }
                 else if (user.Username != username && user.Password == password)
                 {
-                    Console.WriteLine("You entered the wrong password you have: "+ loginAttempts+ " Attepts left");
+                    Console.WriteLine("You entered the wrong password. You have: "+ loginAttempts+ " attempts left");
                     Thread.Sleep(4000);
                     Console.Clear();
                     Test();
