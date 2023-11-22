@@ -613,10 +613,20 @@ namespace BankSystem
             Accounts userBAcc = userB.userAccounts.Find(x => x.AccountNumber == userInput1); //finds user account to transfer to
 
             Console.WriteLine("\n Displaying total amount in chosen accounts before transfer:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Anna's account:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userAAcc.TotalAmount);
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Ander's account:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount before transfer
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             Console.WriteLine("\n Choose amount of money to transfer:");
             string userInput2 = Console.ReadLine();
@@ -625,10 +635,20 @@ namespace BankSystem
             TransferMoney(userAAcc, userBAcc, amountToTransfer); //transferring money from user A to user B
 
             Console.WriteLine("Displaying total amount in chosen accounts after transfer");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Anna's account:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userAAcc.TotalAmount);
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Total amount in Ander's account:");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userBAcc.TotalAmount); //shows total amount after transfer
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Transfer successful");
 
             Console.ReadLine(); // Wait for user input
