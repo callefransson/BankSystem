@@ -669,7 +669,7 @@ namespace BankSystem
             Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount after transfer
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n Transfer successful");
+            
 
             // Create object of Transaction class
             Transaction transaction = new Transaction();
@@ -737,7 +737,7 @@ namespace BankSystem
 
         public void DelayTransfer() // method to delay transfer
         {
-            Console.WriteLine("Transfer initiated. Please wait...");
+            Console.WriteLine("\n Transfer initiated. Please wait...");
             TimeSpan interval = TimeSpan.FromSeconds(4); // change it to: FromMinutes(15), for  15 minutes, now its 4 second to show that is working
             Thread.Sleep(interval);
             //Transaction completed.
