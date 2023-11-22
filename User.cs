@@ -22,12 +22,18 @@ namespace BankSystem
         public string BankAccount { get; set; }
 
 
+        List<Transaction> transactionsList = new List<Transaction>();
+
+        public User(string userRole, double personalNumber) : base(userRole, personalNumber)
+
+
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
         public List<User> users = new List<User>();  // creates a list of users
 
 
         // User constructor and base (inheritance) from Person constructor.
         public User(string username, string password, string userRole, int id) : base(username, password, userRole, id) 
+
         {
 
         }
