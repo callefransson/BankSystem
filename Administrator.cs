@@ -1,15 +1,17 @@
-﻿namespace BankSystem
+﻿using System.Security.Principal;
+
+namespace BankSystem
 {
     internal class Administrator : Person, IPrintMenu
     {
-
-        public Administrator(string username, string password, string userRole, int id) : base(username, password, userRole, id)
+        public LoginManager loginManager;
+        public Administrator(LoginManager loginManager, string username, string password, string userRole, int id)
+            : base(username, password, userRole, id)
         {
+            this.loginManager = loginManager;
         }
 
-        List<Person> accounts = new List<Person>();
         Exchange exchangeRate = new Exchange();
-        
 
         public bool IsValidInput(string input) // Checks if admin creates a username or password with spaces
         {
@@ -38,7 +40,6 @@
             string adminInput;
             string username;
             string password;
-            int id = ID;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[ Add a user to the bank ]");
@@ -77,14 +78,9 @@
                 if (IsValidCharacters(username) && IsValidCharacters(password))
                 {
                     // Create user if both 'no spaces' and 'no invalid character' are true
-                    Person account = new Person(username, password, "User", ID)
-                    {
-                        Username = username,
-                        Password = password,
-                        UserRole = "User",
-                        ID = ID++
-                    };
-                    accounts.Add(account);
+                    Person account = new Person(username, password, "User", ID);
+                    loginManager.AddUserToAccounts(account);
+
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("User with username: {0} has been created!", account.Username);
                     Console.ResetColor();
@@ -109,7 +105,7 @@
         public void RemoveUser()
         {
             Console.Clear();
-            if (accounts.Count == 0)
+            if (loginManager.Accounts.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No user in the list");
@@ -122,7 +118,7 @@
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("[ Remove a user from the bank ]");
                 Console.ResetColor();
-                foreach (Person user in accounts)
+                foreach (Person user in loginManager.Accounts)
                 {
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
@@ -136,14 +132,14 @@
             while (!userRemoved)
             {
                 string removeUser = Console.ReadLine();
-                Person userToRemove = accounts.Find(user => user.Username == removeUser);
+                Person userToRemove = loginManager.Accounts.Find(user => user.Username == removeUser);
 
                 if (userToRemove != null)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("User removed successfully!");
                     Console.ResetColor();
-                    accounts.Remove(userToRemove);
+                    loginManager.Accounts.Remove(userToRemove);
                     userRemoved = true;
                 }
                 else
@@ -159,7 +155,7 @@
         {
             Console.Clear();
 
-            if (accounts.Count == 0)
+            if (loginManager.Accounts.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No user in the list");
@@ -171,7 +167,7 @@
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("[ Show all users ]");
                 Console.ResetColor();
-                foreach (Person user in accounts)
+                foreach (Person user in loginManager.Accounts)
                 {
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
@@ -196,7 +192,6 @@
         private int menuSelected = 0;
         public override void RunMenu()
         {
-            bool isLoggedIn = true;
             while (true)
             {
                 Console.Clear();
@@ -262,7 +257,8 @@
                             break;
                         case 5: // Det alternativ som loggar ut
                             Console.WriteLine("Logging out...");
-                            isLoggedIn = false; // Sätt isLoggedIn till false för att signalera utloggning
+                            Console.Clear();
+                            loginManager.RequestLogin();
                             break;
                         case 6:
                             Console.WriteLine("Thanks for using CodeCats awesome bank!");
@@ -272,12 +268,6 @@
                             Console.WriteLine("Pick any of the options");
                             break;
                     }
-                    if (!isLoggedIn)
-                    {
-                        Console.Clear();
-                        LoginManager s = new LoginManager();
-                        s.firstStart();
-                    }
 
                     Console.CursorVisible = true;
 
@@ -285,28 +275,6 @@
                 }
             }
         }
-        //public void LoginAsCreatedUser()
-        //{
-        //    Console.WriteLine("Enter username of the user you want to log in as:");
-        //    string username = Console.ReadLine();
-
-        //    // Hitta användaren i listan över skapade användare
-        //    Person userToLoginAs = accounts.FirstOrDefault(u => u.Username == username);
-
-        //    if (userToLoginAs != null)
-        //    {
-        //        // Logga in som användaren
-        //        Console.WriteLine("Logging in as user: " + username);
-        //        Start start = new Start();
-        //        start.Test();
-        //        // Implementera inloggning som när du loggar in från startklassen
-        //        // Exempelvis: Start.Login(userToLoginAs);
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("User not found.");
-        //    }
-        //}
         public override void ReturnToMenu()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;

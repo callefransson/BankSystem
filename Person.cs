@@ -19,7 +19,7 @@ namespace BankSystem
             Username = username;
             Password = password;
             UserRole = userRole;
-            ID = id;
+            ID = id++;
 
         }
 

@@ -4,9 +4,12 @@
     {
         static void Main(string[] args)
         {
-      
-            LoginManager apprun = new LoginManager();
-            apprun.firstStart();
+
+            LoginManager loginManager = new LoginManager();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            loginManager.PrintMenu();
+            Console.ResetColor();
+            loginManager.RequestLogin();
         }
 
     }
