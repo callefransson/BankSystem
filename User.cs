@@ -28,6 +28,7 @@ namespace BankSystem
 
         List<User> showAccounts = new List<User>(); // list in ShowbankAccountsmethod();
         Dictionary<string, User> createAccount = new Dictionary<string, User>(); // Dictonary in OpenNewBankAccounts list
+        List<User> transfer2acc = new List<User>(); // list in transfertoSecondAccount
 
         public List<User> users = new List<User>();  // creates a list of users
 
@@ -562,11 +563,146 @@ namespace BankSystem
             }
         }
 
-        private void TransferToSecondAccount()
+        private void TransferToSecondAccount() // method to transfer to user
         {
             Console.Clear();
-            Console.WriteLine("\n[Transfer to second account]");
-            // Add your code for the fourth choice here
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Transfer ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("to ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("seccond ");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("account");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("]");
+            Console.ResetColor();
+
+            Console.WriteLine("");
+
+            // Create user instances
+            User b1 = new User("JaneDoe", "***", "User", 101) // User b1 Id 101: Peter
+            {
+                BankAccount = "Peters Account      ",
+                Balance = 1000000
+            };
+
+            User b2 = new User("JaneDoe", "***", "User", 102) // User b2 Id 102: Gabriella
+            {
+                BankAccount = "Gabriellas Account  ",
+                Balance = 1000000
+            };
+
+            User b3 = new User("JaneDOe", "***", "User", 103) // User b3 Id 103: Carl
+            {
+                BankAccount = "Carls Account       ",
+                Balance = 1000000
+            };
+
+            User b4 = new User("JaneDoe", "***", "User", 104) // User b4 Id 104:Malin
+            {
+                BankAccount = "Malins Account      ",
+                Balance = 1000000
+            };
+
+            User b5 = new User("JaneDoe", "***", "User", 105) // User b5 Id 105: Martin
+            {
+                BankAccount = "Martins Account     ",
+                Balance = 1000000
+            };
+
+            // Make a list of all user accounts
+            //List<User> transfer2acc = new List<User>();
+            transfer2acc.Add(b1); // adding user to list 1
+            transfer2acc.Add(b2); // adding user to list 2
+            transfer2acc.Add(b3); // adding user to list 3
+            transfer2acc.Add(b4); // adding user to list 4
+            transfer2acc.Add(b5); // adding user to list 5
+
+
+            // to se what user you logged in as:
+            Console.WriteLine("");
+            Console.Write($"You currently logged in as: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{b1.ID} ");
+            Console.ResetColor();
+            Console.Write($" {b1.Username} on bank account: {b1.BankAccount}");
+            Console.WriteLine("");
+            // Method to count how many accounts the user has
+            Console.WriteLine("you have a total of :" + " " + transfer2acc.Count + " " + " Accounts"); // and write it out here
+            Console.WriteLine(""); // nicer looking
+
+            foreach (var acc in transfer2acc) // foreach loop to display account
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{acc.ID} "); // write out id in Red
+                Console.ResetColor();
+                Console.WriteLine($"[{acc.BankAccount}]  Balance: {acc.Balance}€"); // write out acc + balance
+            }
+
+            Console.WriteLine("");
+            Console.Write("Type the ID of the account you want to transfer money to:  ");
+            // Choose the target user ID
+            int targetUserId = int.Parse(Console.ReadLine());
+
+            // Find the target user based on the entered ID //find method
+            User targetUser = transfer2acc.Find(account => account.ID == targetUserId);
+
+            switch (targetUserId) // switch for target user id
+            { // (if you type ) 102, 103, 104, 105:
+                case 102:
+                case 103:
+                case 104:
+                case 105:
+                    Console.WriteLine("Type how much € you want to transfer to the selected account:");
+                    // Transfer amount
+                    decimal transferAmount = decimal.Parse(Console.ReadLine()); // userinput to transfer from your account to target account
+
+                    // Ensure that the source account has sufficient balance, otherwize you cant transfer
+                    if (b1.Balance >= transferAmount)
+                    {
+                        // draw the amount from the source account and add it to the target account
+                        b1.Balance -= transferAmount;
+                        targetUser.Balance += transferAmount;
+
+                        Console.WriteLine("");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        DelayTransfer(); // delay transfer
+                        Console.ResetColor();
+                        //output ro: succefully transferred x amount from User, to user account
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"transferred {transferAmount}€ from {b1.BankAccount} to {targetUser.BankAccount}");
+                        Console.ResetColor();
+
+                        Console.WriteLine("");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        // Show updated balances after the transfer on both accounts
+                        Console.WriteLine("*********Uppdated Account info*************");
+                        Console.WriteLine($"{b1.BankAccount} Balance: {b1.Balance}€");
+                        Console.WriteLine($"{targetUser.BankAccount} Balance: {targetUser.Balance}€");
+                        Console.WriteLine("__________________________________________");
+                        Console.ResetColor();
+                    }
+                    else // if balance is to low or to high in "logged in balance"
+                    {
+                        Console.WriteLine($"Insufficient balance in {b1.BankAccount} to transfer {transferAmount}€");
+                    }
+                    break;
+                case 101: // if you try to transfer to your own account.
+                    Console.WriteLine("You cannot transfer to your own account.");
+                    break;
+                default: // if you type any other.
+                    Console.WriteLine($"Invalid account ID: {targetUserId}");
+                    break;
+            }
             ReturnToMenu();
         }
 
