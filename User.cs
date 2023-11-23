@@ -11,10 +11,17 @@ namespace BankSystem
     internal class User : Person, ILoans, IDelay
 
     {
+        public LoginManager loginManager;
+
+        public User(LoginManager loginManager, string username, string password, string userRole, int id)
+            : base(username, password, userRole, id)
+        {
+            this.loginManager = loginManager;
+        }
         //menu options, (how it will look)
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
         "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
-        "[6]End\t\t" };
+        "[6]Sign out\t\t", "[7]End\t\t" };
         private int menuSelected = 0; // set value to 0
 
         public decimal Balance { get; set; }
@@ -116,6 +123,9 @@ namespace BankSystem
                             TransferToUser();
                             break;
                         case 5:
+                            Signout();
+                            break;
+                        case 6:
                             EndProgram();
                             break;
 
@@ -839,6 +849,14 @@ namespace BankSystem
 █░██░█▄▄▀█░▄▄█░▀▀▄███░█░█░█░▄▄█░██░█░██░█
 █▄▀▀▄█▄▄▄█▄▄▄█▄█▄▄███░███░█▄▄▄█▄██▄██▄▄▄█
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀");
+        }
+        private void Signout()
+        {
+            Console.Clear();
+            Console.WriteLine("Signing out...");
+            Thread.Sleep(1000);
+            Console.Clear();
+            loginManager.RequestLogin();
         }
         public void PrintTeamTag()
         {

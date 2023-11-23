@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BankSystem
 {
-    
-    
+
+
     class LoginManager
     {
         private int _loginAttempts = 0;
@@ -18,7 +18,7 @@ namespace BankSystem
 
         public LoginManager()
         {
-            accounts.Add(new Person("Admin", "123", "Admin",1));
+            accounts.Add(new Person("Admin", "123", "Admin", 1));
             accounts.Add(new Person("User", "123", "User", 1));
         }
 
@@ -41,7 +41,7 @@ namespace BankSystem
                 }
                 else if (foundUser.UserRole == "User")
                 {
-                    User regularUser = new User(username, password, foundUser.UserRole, foundUser.ID);
+                    User regularUser = new User(this, username, password, foundUser.UserRole, foundUser.ID);
                     regularUser.RunMenu();
                 }
             }
@@ -59,8 +59,18 @@ namespace BankSystem
                 }
             }
         }
+        public void PrintTeamTag()
+        {
+            Console.WriteLine(@"
+  /\_/\                         /\_/\    
+ (>^.^<)                       (>^.^<)
+((¨)(¨))_/ Team #1: CodeCats \_((¨)(¨))");
+
+        }
         public void RequestLogin()
         {
+
+            PrintMenu();
             Console.Write("Enter username: ");
             string usernameInput = Console.ReadLine();
             Console.Write("Enter password: ");
@@ -80,13 +90,16 @@ namespace BankSystem
 
         public void PrintMenu()
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+
             Console.WriteLine(@"
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-██░████▀▄▄▀█░▄▄▄██▄██░▄▄▀████░▄▀▄░█░▄▄█░▄▄▀█░██░██
+██░████▀▄▄▀█░▄▄▄██▄██░▄▄▀████░▄▀▄░█░▄▄█░▄▄▀█░██░██ 
 ██░████░██░█░█▄▀██░▄█░██░████░█░█░█░▄▄█░██░█░██░██
-██░▀▀░██▄▄██▄▄▄▄█▄▄▄█▄██▄████░███░█▄▄▄█▄██▄██▄▄▄██
+██░▀▀░██▄▄██▄▄▄▄█▄▄▄█▄██▄████░███░█▄▄▄█▄██▄██▄▄▄██ 
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 ");
+            Console.ResetColor();
         }
     }
 }
