@@ -11,11 +11,7 @@ namespace BankSystem
             this.loginManager = loginManager;
         }
 
-        //List<Person> accounts = new List<Person>();
         Exchange exchangeRate = new Exchange();
-        
-        //LoginManager loginManager = new LoginManager();
-
 
         public bool IsValidInput(string input) // Checks if admin creates a username or password with spaces
         {
@@ -279,28 +275,6 @@ namespace BankSystem
                 }
             }
         }
-        //public void LoginAsCreatedUser()
-        //{
-        //    Console.WriteLine("Enter username of the user you want to log in as:");
-        //    string username = Console.ReadLine();
-
-        //    // Hitta användaren i listan över skapade användare
-        //    Person userToLoginAs = accounts.FirstOrDefault(u => u.Username == username);
-
-        //    if (userToLoginAs != null)
-        //    {
-        //        // Logga in som användaren
-        //        Console.WriteLine("Logging in as user: " + username);
-        //        Start start = new Start();
-        //        start.Test();
-        //        // Implementera inloggning som när du loggar in från startklassen
-        //        // Exempelvis: Start.Login(userToLoginAs);
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("User not found.");
-        //    }
-        //}
         public override void ReturnToMenu()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
