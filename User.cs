@@ -14,7 +14,7 @@ namespace BankSystem
         //menu options, (how it will look)
         private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
         "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
-        "[6]Show all transactions\t\t", "[7]End\t\t" };
+        "[6]End\t\t" };
         private int menuSelected = 0; // set value to 0
 
         public decimal Balance { get; set; }
@@ -116,9 +116,6 @@ namespace BankSystem
                             TransferToUser();
                             break;
                         case 5:
-                            ShowAllTransactions();
-                            break;
-                        case 6:
                             EndProgram();
                             break;
 
@@ -806,27 +803,22 @@ namespace BankSystem
             Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount after transfer
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            
 
             // Create object of Transaction class
             Transaction transaction = new Transaction();
             transaction.FromUser = userA.Username;
             transaction.ToUser = userB.Username;
-            transaction.TotalAmount = 500;
+            transaction.TotalAmount = amountToTransfer;
 
             transactionsList.Add(transaction);
 
-            ReturnToMenu();
-        }
+            Console.WriteLine("\n[Transactions made]:\n");
 
-        private void ShowAllTransactions()
-        {
-            Console.Clear();
-            Console.WriteLine("\n[Showing all transactions]");
-            
-            foreach (Transaction transaction in transactionsList) 
+            Console.WriteLine("Number of transactions in the list: " + transactionsList.Count + "\n");
+
+            foreach (Transaction transactions in transactionsList)
             {
-                Console.WriteLine($"\n[Transactions]:\nFrom account: {transaction.FromUser}\nTo account: {transaction.ToUser}\nAmount: {transaction.TotalAmount}");
+                Console.WriteLine($"From account: {transaction.FromUser}\nTo account: {transaction.ToUser}\nAmount: {transaction.TotalAmount}");
             }
 
             ReturnToMenu();
