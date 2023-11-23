@@ -293,6 +293,7 @@ namespace BankSystem
                 Console.Write("Enter '5' to leave the loan sections.\n");
                 Console.WriteLine("Which loan are you interested in?");
 
+                int Balance = 32000;
                 decimal maxLoanAmount = Balance * 5;
 
                 double debt = 0;
