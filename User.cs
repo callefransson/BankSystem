@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace BankSystem
 {
@@ -22,8 +23,7 @@ namespace BankSystem
         public string BankAccount { get; set; }
 
 
-        List<Transaction> transactionsList = new List<Transaction>();
-
+        public List<Transaction> transactionsList = new List<Transaction>();
 
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
         public List<User> users = new List<User>();  // creates a list of users
@@ -640,23 +640,32 @@ namespace BankSystem
             Transaction transaction = new Transaction();
             transaction.FromUser = userA.Username;
             transaction.ToUser = userB.Username;
-            transaction.TotalAmount = 500;
+            transaction.TotalAmount = amountToTransfer;
 
             transactionsList.Add(transaction);
+
+            Console.WriteLine("Number of transactions in the list: " + transactionsList.Count + "\n");
+
+            foreach (Transaction transactions in transactionsList)
+            {
+                Console.WriteLine($"From account: {transaction.FromUser}\nTo account: {transaction.ToUser}\nAmount: {transaction.TotalAmount}");
+            }
 
             Console.ReadLine(); // Wait for user input
         }
 
-        private void ShowAllTransactions()
+        public void ShowAllTransactions()
         {
             Console.Clear();
-            Console.WriteLine("\n[Showing all transactions]");
-            
-            foreach (Transaction transaction in transactionsList) 
-            {
-                Console.WriteLine($"\n[Transactions]:\nFrom account: {transaction.FromUser}\nTo account: {transaction.ToUser}\nAmount: {transaction.TotalAmount}");
-            }
+            Console.WriteLine("\n[Transactions]:\n");
 
+            Console.WriteLine("Number of transactions in the list: " + transactionsList.Count + "\n");
+
+            foreach (Transaction transactions in transactionsList)
+            {
+                Console.WriteLine($"From account: {transactions.FromUser}\nTo account: {transactions.ToUser}\nAmount: {transactions.TotalAmount}");
+            }
+            
             Console.ReadLine(); // Wait for user input
         }
 
