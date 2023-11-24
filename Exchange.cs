@@ -2,6 +2,7 @@
 {
     internal class Exchange
     {
+        //Properties
         public double SekToEuro { get; set; }
         public double SekToUsd { get; set; }
         public double SekToGbp { get; set; }
@@ -18,6 +19,7 @@
 
         public Exchange()
         {
+            // initializes exchange rates with specific values
             SekToEuro = 0.088;
             SekToUsd = 0.096;
             SekToGbp = 0.076;
@@ -30,9 +32,8 @@
             GbpToEuro = 1.15;
             GbpToSek = 13.11;
             GbpToUsd = 1.25;
-
         }
-        public void UpdateExchangeRate(Administrator administrator)
+        public void UpdateExchangeRate(Administrator administrator) // Method to update exchange rate, only amdinistrator have acsess to this method
         {
             int selectedRate;
             double newRateValue;
@@ -61,11 +62,10 @@
             // Admin choose which of the currency should be updated
             while (true)
             {
-                // Låt användaren välja vilken valutakurs de vill uppdatera
                 Console.WriteLine("\nEnter the number of the exchange rate you want to update:");
                 if (int.TryParse(Console.ReadLine(), out selectedRate))
                 {
-                    if (selectedRate >= 1 && selectedRate <= 12)
+                    if (selectedRate >= 1 && selectedRate <= 12) // If admin is inside the range from 1-12
                     {
                         break;
                     }
@@ -90,7 +90,7 @@
                 Console.WriteLine("Enter the new value for the exchange rate:");
                 if (double.TryParse(Console.ReadLine(), out newRateValue))
                 {
-                    // Update the new exchange rate
+                    // Update the new exchange rate depending on which case admin picks
                     switch (selectedRate)
                     {
                         case 1:
@@ -185,7 +185,7 @@
                 }
             }
         }
-        public void ShowExchangeRate(Administrator administrator)
+        public void ShowExchangeRate(Administrator administrator) //Method to show the updated exchange rate, only admin have acsess to this method
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
