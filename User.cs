@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BankSystem
 {
 
-    internal class User : Person, ILoans, IDelay
+    internal class User : Person, IDelay
 
     {
         public LoginManager loginManager;
@@ -837,7 +837,7 @@ namespace BankSystem
         private void EndProgram()
         {
             Console.Clear();
-            Console.WriteLine("\nProgram Ended");
+            Console.WriteLine("Thanks for using CodeCats awesome bank!");
             // end the program here
         }
 
@@ -856,6 +856,7 @@ namespace BankSystem
             Console.WriteLine("Signing out...");
             Thread.Sleep(1000);
             Console.Clear();
+            loginManager.PrintMenu();
             loginManager.RequestLogin();
         }
         public void PrintTeamTag()

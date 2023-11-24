@@ -4,11 +4,9 @@
     {
         static void Main(string[] args)
         {
-
             LoginManager loginManager = new LoginManager();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.ResetColor();
-            loginManager.RequestLogin();
+            loginManager.PrintMenu(); //Prints login ascii art
+            loginManager.RequestLogin(); //Login method
         }
 
     }

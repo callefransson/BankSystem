@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BankSystem
+﻿namespace BankSystem
 {
 
 
@@ -69,8 +63,6 @@ namespace BankSystem
         }
         public void RequestLogin()
         {
-
-            PrintMenu();
             Console.Write("Enter username: ");
             string usernameInput = Console.ReadLine();
             Console.Write("Enter password: ");
