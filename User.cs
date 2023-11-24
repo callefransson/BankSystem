@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BankSystem
 {
 
-    internal class User : Person, ILoans, IDelay
+    internal class User : Person, IDelay
 
     {
         public LoginManager loginManager;
@@ -721,7 +721,7 @@ namespace BankSystem
             Console.WriteLine("\n [Transfer to user]");
             Console.WriteLine("\n Choose which account to transfer money from:");
 
-            User userA = new User("JaneDoe", "Anna123", "user", ID); //creates users
+            User userA = new User("Anna", "Anna123", "user", ID); //creates users
             userA.NewAccount(5);
             userA.NewAccount(7);
             userA.NewAccount(8);
@@ -736,7 +736,7 @@ namespace BankSystem
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
 
-            Console.WriteLine("List of JaneDoe's accounts:");
+            Console.WriteLine($"List of {userA.Username}'s accounts:");
             foreach (var account in userA.userAccounts)
             {
                 Console.Write(account.AccountNumber); 
@@ -756,7 +756,7 @@ namespace BankSystem
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
 
-            Console.WriteLine("List of Ander's accounts:");
+            Console.WriteLine($"List of {userB.Username}' accounts:");
             foreach (var account in userB.userAccounts)
             {
                 Console.Write(account.AccountNumber);
@@ -774,13 +774,13 @@ namespace BankSystem
             Console.WriteLine("\n Displaying total amount in chosen accounts before transfer:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Total amount in JaneDoe's account:");
+            Console.WriteLine($"Total amount in {userA.Username}'s account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userAAcc.TotalAmount + " SEK");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Total amount in Ander's account:");
+            Console.WriteLine($"Total amount in {userB.Username}' account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount before transfer
@@ -801,13 +801,13 @@ namespace BankSystem
             Console.WriteLine("\n Displaying total amount in chosen accounts after transfer:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Total amount in JaneDoe's account:");
+            Console.WriteLine($"Total amount in {userA.Username}'s account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userAAcc.TotalAmount + " SEK");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Total amount in Ander's account:");
+            Console.WriteLine($"Total amount in {userB.Username}' account:");
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(userBAcc.TotalAmount + " SEK"); //shows total amount after transfer
@@ -837,7 +837,7 @@ namespace BankSystem
         private void EndProgram()
         {
             Console.Clear();
-            Console.WriteLine("\nProgram Ended");
+            Console.WriteLine("Thanks for using CodeCats awesome bank!");
             // end the program here
         }
 
@@ -856,6 +856,7 @@ namespace BankSystem
             Console.WriteLine("Signing out...");
             Thread.Sleep(1000);
             Console.Clear();
+            loginManager.PrintMenu();
             loginManager.RequestLogin();
         }
         public void PrintTeamTag()

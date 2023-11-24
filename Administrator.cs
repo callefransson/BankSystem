@@ -1,11 +1,9 @@
-﻿using System.Security.Principal;
-
-namespace BankSystem
+﻿namespace BankSystem
 {
-    internal class Administrator : Person, IPrintMenu
+    internal class Administrator : Person, IPrintMenu // Administrator class that inheritense from Person and IPrintMenu
     {
         public LoginManager loginManager;
-        public Administrator(LoginManager loginManager, string username, string password, string userRole, int id)
+        public Administrator(LoginManager loginManager, string username, string password, string userRole, int id) //Constructor for Administrator class base from Person
             : base(username, password, userRole, id)
         {
             this.loginManager = loginManager;
@@ -17,7 +15,7 @@ namespace BankSystem
         {
             return !input.Contains(" ");
         }
-        public bool IsValidCharacters(string input)
+        public bool IsValidCharacters(string input)// Checks if admin creates a username or password with special characters
         {
             //Creating a array with chars
             char[] invalidCharacters = { '!', '"', '#', '%', '&', '/', '(', ')', '=', '?', '@', '$', '{', '[', ']', '}', '-', '_', '*', '|' };
@@ -75,9 +73,8 @@ namespace BankSystem
 
             if (IsValidInput(username) && IsValidInput(password))
             {
-                if (IsValidCharacters(username) && IsValidCharacters(password))
+                if (IsValidCharacters(username) && IsValidCharacters(password)) //If username and password do not contain any spaces or special characters user is created
                 {
-                    // Create user if both 'no spaces' and 'no invalid character' are true
                     Person account = new Person(username, password, "User", ID);
                     loginManager.AddUserToAccounts(account);
 
@@ -102,10 +99,10 @@ namespace BankSystem
             Console.WriteLine("");
             ReturnToMenu();
         }
-        public void RemoveUser()
+        public void RemoveUser() // Method for removing users from the list
         {
             Console.Clear();
-            if (loginManager.Accounts.Count == 0)
+            if (loginManager.Accounts.Count == 0) // If there are no users in the list
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No user in the list");
@@ -118,7 +115,7 @@ namespace BankSystem
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("[ Remove a user from the bank ]");
                 Console.ResetColor();
-                foreach (Person user in loginManager.Accounts)
+                foreach (Person user in loginManager.Accounts) // Loops through all the users in the list
                 {
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
@@ -139,7 +136,7 @@ namespace BankSystem
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("User removed successfully!");
                     Console.ResetColor();
-                    loginManager.Accounts.Remove(userToRemove);
+                    loginManager.Accounts.Remove(userToRemove); // Removes the user from the list
                     userRemoved = true;
                 }
                 else
@@ -151,11 +148,11 @@ namespace BankSystem
             }
             ReturnToMenu();
         }
-        public void ShowAllUsers()
+        public void ShowAllUsers() //Method for showing all the users in the list
         {
             Console.Clear();
 
-            if (loginManager.Accounts.Count == 0)
+            if (loginManager.Accounts.Count == 0) // If there are no users in the list
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No user in the list");
@@ -167,7 +164,7 @@ namespace BankSystem
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("[ Show all users ]");
                 Console.ResetColor();
-                foreach (Person user in loginManager.Accounts)
+                foreach (Person user in loginManager.Accounts)//Foreach loop showing all users in the list
                 {
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("Id: {0} Username: {1} ", user.ID, user.Username);
@@ -176,7 +173,7 @@ namespace BankSystem
             }
             ReturnToMenu();
         }
-        
+
         public void PrintMenu()
         {
             Console.WriteLine(@"
@@ -252,15 +249,20 @@ namespace BankSystem
                         case 3:
                             exchangeRate.UpdateExchangeRate(this);
                             break;
-                            case 4:
+                        case 4:
                             exchangeRate.ShowExchangeRate(this);
                             break;
                         case 5: // Det alternativ som loggar ut
-                            Console.WriteLine("Logging out...");
                             Console.Clear();
+                            Console.WriteLine("Signing out...");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            loginManager.PrintMenu();
                             loginManager.RequestLogin();
                             break;
                         case 6:
+                            Console.Clear();
+                            Console.WriteLine("");
                             Console.WriteLine("Thanks for using CodeCats awesome bank!");
                             Environment.Exit(0);
                             break;
