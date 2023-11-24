@@ -23,7 +23,7 @@ https://github.com/callefransson/BankSystem/assets/144247326/396c42a8-478a-4d3b-
 ### User demo
 https://github.com/callefransson/BankSystem/assets/144247326/a24f4742-480e-4d45-81cd-af9f50e5d864
 
-## 🎮 Authors and acknowledgment
+## 🎮 Authors and acknowledgement
 ### 🐱 Team CodeCats
 #### 🧩 PeterMolen 
 #### 🧩 GabriellaNilsson
