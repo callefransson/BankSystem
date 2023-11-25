@@ -614,6 +614,7 @@ namespace BankSystem
             Console.WriteLine("");
 
             // Create user instances
+            // Create user instances
             User b1 = new User("User1", "***", "User", 4) // User b1 Id 4: Peter
             {
                 BankAccount = "Peters Account      ",
@@ -645,7 +646,8 @@ namespace BankSystem
             };
 
             // Make a list of all user accounts
-            //List<User> transfer2acc = new List<User>();
+            List<User> transfer2acc = new List<User>();// i want to put the list outside the method for the same reason i stated as the Dictonary
+           
             transfer2acc.Add(b1); // adding user to list 1
             transfer2acc.Add(b2); // adding user to list 2
             transfer2acc.Add(b3); // adding user to list 3
