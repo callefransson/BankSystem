@@ -537,7 +537,7 @@ namespace BankSystem
                         Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
                         Console.ResetColor();
                         Console.WriteLine("________________________________________________");
-
+                        ReturnToMenu(); // return to user menu
                         validInput = true; // set to true to exit the loop
                     }
                     else
@@ -597,31 +597,31 @@ namespace BankSystem
             Console.WriteLine("");
 
             // Create user instances
-            User b1 = new User("JaneDoe", "***", "User", 101) // User b1 Id 101: Peter
+            User b1 = new User("User1", "***", "User", 4) // User b1 Id 4: Peter
             {
                 BankAccount = "Peters Account      ",
                 Balance = 1000000
             };
 
-            User b2 = new User("JaneDoe", "***", "User", 102) // User b2 Id 102: Gabriella
+            User b2 = new User("User", "***", "User", 5) // User b2 Id 5: Gabriella
             {
                 BankAccount = "Gabriellas Account  ",
                 Balance = 1000000
             };
 
-            User b3 = new User("JaneDOe", "***", "User", 103) // User b3 Id 103: Carl
+            User b3 = new User("User", "***", "User", 6) // User b3 Id 6: Carl
             {
                 BankAccount = "Carls Account       ",
                 Balance = 1000000
             };
 
-            User b4 = new User("JaneDoe", "***", "User", 104) // User b4 Id 104:Malin
+            User b4 = new User("User", "***", "User", 7) // User b4 Id 7:Malin
             {
                 BankAccount = "Malins Account      ",
                 Balance = 1000000
             };
 
-            User b5 = new User("JaneDoe", "***", "User", 105) // User b5 Id 105: Martin
+            User b5 = new User("User", "***", "User", 8) // User b5 Id 8: Martin
             {
                 BankAccount = "Martins Account     ",
                 Balance = 1000000
@@ -638,11 +638,11 @@ namespace BankSystem
 
             // to se what user you logged in as:
             Console.WriteLine("");
-            Console.Write($"You currently logged in as: ");
+            Console.Write($"You currently logged in as ID: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write($"{b1.ID} ");
+            Console.Write($"[{b1.ID}] ");
             Console.ResetColor();
-            Console.Write($" {b1.Username} on bank account: {b1.BankAccount}");
+            Console.Write($"{b1.Username} on bank account: {b1.BankAccount}");
             Console.WriteLine("");
             // Method to count how many accounts the user has
             Console.WriteLine("you have a total of :" + " " + transfer2acc.Count + " " + " Accounts"); // and write it out here
@@ -665,11 +665,11 @@ namespace BankSystem
             User targetUser = transfer2acc.Find(account => account.ID == targetUserId);
 
             switch (targetUserId) // switch for target user id
-            { // (if you type ) 102, 103, 104, 105:
-                case 102:
-                case 103:
-                case 104:
-                case 105:
+            { // (if you type )  5, 6, 7, 8:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
                     Console.WriteLine("Type how much € you want to transfer to the selected account:");
                     // Transfer amount
                     decimal transferAmount = decimal.Parse(Console.ReadLine()); // userinput to transfer from your account to target account
@@ -698,13 +698,14 @@ namespace BankSystem
                         Console.WriteLine($"{targetUser.BankAccount} Balance: {targetUser.Balance}€");
                         Console.WriteLine("__________________________________________");
                         Console.ResetColor();
+                        break;
                     }
                     else // if balance is to low or to high in "logged in balance"
                     {
                         Console.WriteLine($"Insufficient balance in {b1.BankAccount} to transfer {transferAmount}€");
                     }
                     break;
-                case 101: // if you try to transfer to your own account.
+                case 4: // if you try to transfer to your own account.
                     Console.WriteLine("You cannot transfer to your own account.");
                     break;
                 default: // if you type any other.
