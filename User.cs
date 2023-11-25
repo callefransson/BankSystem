@@ -34,7 +34,6 @@ namespace BankSystem
         public List<Accounts> userAccounts = new List<Accounts>(); //creates a list of userAccounts for TransferToUser method
 
         List<User> showAccounts = new List<User>(); // list in ShowbankAccountsmethod();
-        Dictionary<string, User> createAccount = new Dictionary<string, User>(); // Dictonary in OpenNewBankAccounts list
         List<User> transfer2acc = new List<User>(); // list in transfertoSecondAccount
 
         public List<User> users = new List<User>();  // creates a list of users
@@ -457,6 +456,12 @@ namespace BankSystem
 
         private void OpenNewBankAccount()
         {
+            Dictionary<string, User> userAccounts = new Dictionary<string, User>(); // diconary inside the list, i want to set it outside for the reason:
+            // to have lists and diconary outside the method: making it a class-level field or property. 
+            // This way, the dictionary will persist across multiple method calls, and you won't lose the previously created accounts.
+
+            //but i dont geth the method to function the way i want so im putting it inside for now.
+
             Console.Clear();
             // main menu for Open new bank account
             Console.OutputEncoding = System.Text.Encoding.Unicode; // to see special signs (euro sign)
@@ -478,7 +483,6 @@ namespace BankSystem
             Console.Write("]");
             Console.ResetColor();
             Console.WriteLine("");
-            
 
             Console.WriteLine("");
             Console.Write("type");
@@ -498,78 +502,91 @@ namespace BankSystem
             Console.Write("other account");
             Console.WriteLine("");
             Console.ResetColor();
-            int userInput = int.Parse(Console.ReadLine()); // userinput to select 1 or 2
 
-            if (userInput == 1) // if user type 1 and enter : 
+            if (int.TryParse(Console.ReadLine(), out int userInput)) // use int.TryParse to safely parse the input
             {
-                // main menu for Saving account
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("       [Savings Account]");
-                Console.ResetColor(); // reset color to normal
-                Console.Clear();
-                Console.WriteLine("           Welcome! \nWe have a yearly 1% savings interest rate");
-                Console.WriteLine("");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                User b1 = new User("JaneDoe", "********", "User", 101);
+                if (userInput == 1) // if user type 1 and enter : 
                 {
-                    b1.Username = "JaneDoe";  // username
-                    b1.BankAccount = "Savings account"; // userinput for account name
-                };
-                Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
-                Console.ResetColor();
-                Console.WriteLine("");
-
-                bool validInput = false; // valid input = false
-                while (!validInput) // not false to run the loop
-                {
-                    Console.Write(" How much do you want to Deposit in €?  ");
-
-                    if (double.TryParse(Console.ReadLine(), out double userInput1))
+                    // main menu for Saving account
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("       [Savings Account]");
+                    Console.ResetColor(); // reset color to normal
+                    Console.Clear();
+                    Console.WriteLine("           Welcome! \nWe have a yearly 1% savings interest rate");
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    User b1 = new User("Peter", "********", "User", 101);
                     {
-                        double yInterest = userInput1 * 0.01; // mathematic for 1% yearly rate of deposit 
+                        b1.Username = "Peter";  // usernamne is Peter
+                        b1.BankAccount = "Savings account"; // userinput for account name
+                    };
+                    Console.WriteLine($" :: {b1.BankAccount}  has been created ::");
+                    Console.ResetColor();
+                    Console.WriteLine("");
+
+
+                    bool validInput = false; // valid input = false
+                    while (!validInput) // not false to run the loop
+                    {
+                        Console.Write(" How much do you want to Deposit in €?  ");
+
+                        if (double.TryParse(Console.ReadLine(), out double userInput1))
+                        {
+                            double yInterest = userInput1 * 0.01; // mathematic for 1% yearly rate of deposit 
+                            Console.WriteLine("");
+                            Console.WriteLine("*************Savings account info***************");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            DelayTransfer(); // delayin the transfer from the DelayTransfer method. 4 seconds, should be set to 15 minutes. but tis is to show that is working.
+                            Console.WriteLine(userInput1 + "€ has been deposit to your savings account");
+                            Console.WriteLine();
+                            Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
+                            Console.ResetColor();
+                            Console.WriteLine("________________________________________________");
+
+                            validInput = true; // set to true to exit the loop
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter sufficient amount.");
+                        }
+                    }
+                }
+                else if (userInput == 2) // if user type 2 and enter:
+                {
+                    User b1 = new User("JaneDoe", "********", "User", 0);
+                    {
+                        b1.Username = "JaneDoe";  // username
                         Console.WriteLine("");
-                        Console.WriteLine("*************Savings account info***************");
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        DelayTransfer(); // method to delay transfer 
-                        Console.WriteLine(userInput1 + "€ has been deposit to your savings account");
-                        Console.WriteLine();
-                        Console.WriteLine("you will receive " + yInterest + "€" + " a yearly interest rate");
-                        Console.ResetColor();
-                        Console.WriteLine("________________________________________________");
-                        ReturnToMenu(); // return to user menu
-                        validInput = true; // set to true to exit the loop
+                        Console.Write("Write the name of the new bank account: ");
+                        b1.BankAccount = Console.ReadLine(); // userinput for account name
+                    };
+
+                    if (!userAccounts.ContainsKey(b1.Username))
+                    {
+                        userAccounts.Add(b1.Username, b1); // Add the new account to the dictionary
+
+                        Console.WriteLine("");
+                        Console.WriteLine("***** Bank Account info *****");  // output for created acccount
+                        User newAccount = userAccounts[b1.Username];
+                        Console.WriteLine("{0} ID: {1} \n New bank Account = {2} \n",
+                        newAccount.Username, newAccount.ID, newAccount.BankAccount);
+                        Console.WriteLine(userAccounts.Count() + " new account has been created \nThe currency = € //bank support"); // output + count method
+                        Console.WriteLine("------------------------------");
+                        ReturnToMenu();
                     }
                     else
                     {
-                        Console.WriteLine("Invalid input. Please enter sufficient amount.");
+                        Console.WriteLine("Account with this username already exists. Please choose a different username.");
                     }
                 }
             }
-            else if (userInput == 2) // if user type 2 and enter:
+            else
             {
-                User b1 = new User("JaneDoe", "********", "User", 101);
-                {
-                    b1.Username = "JaneDoe";  // username
-                    Console.WriteLine("");
-                    Console.Write("Write the name of the new bank account: ");
-                    b1.BankAccount = Console.ReadLine(); // userinput for account name
-                };
-
-                // create a dictonary string "JaneDoe" and class User.
-                //Dictionary<string, User> createAccount = new Dictionary<string, User>();
-                createAccount.Add(b1.Username, b1); // strnig + class
-
-                Console.WriteLine("");
-                Console.WriteLine("***** Bank Account info *****");  // output for created acccount
-                User newAccount = createAccount["JaneDoe"];
-                Console.WriteLine("{0} ID: {1} \n New bank Account = {2} \n",
-                newAccount.Username, newAccount.ID, newAccount.BankAccount);
-                Console.WriteLine(createAccount.Count() + " new account has been created \nThe currency = € //bank support"); // output + count method
-                Console.WriteLine("------------------------------");
-                ReturnToMenu();
+                Console.WriteLine("Invalid input. Please enter 1 or 2.");
             }
         }
+
 
         private void TransferToSecondAccount() // method to transfer to user
         {
@@ -698,7 +715,6 @@ namespace BankSystem
                         Console.WriteLine($"{targetUser.BankAccount} Balance: {targetUser.Balance}€");
                         Console.WriteLine("__________________________________________");
                         Console.ResetColor();
-                        break;
                     }
                     else // if balance is to low or to high in "logged in balance"
                     {
