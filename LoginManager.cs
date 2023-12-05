@@ -74,7 +74,7 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("You have too many attempts wait for 5 minutes");
+            Console.WriteLine("You have used too many attempts, you have been locked out. Please contact your local administrator to unlock your account");
             Console.ResetColor();
             Thread.Sleep(300000);
             _loginAttempts = 3;

@@ -33,7 +33,7 @@
             GbpToSek = 13.11;
             GbpToUsd = 1.25;
         }
-        public void UpdateExchangeRate(Administrator administrator) // Method to update exchange rate, only amdinistrator have acsess to this method
+        public void UpdateExchangeRate(Administrator administrator) // Method to update exchange rate, only administrator have access to this method
         {
             int selectedRate;
             double newRateValue;
@@ -59,13 +59,13 @@
 
             Console.ResetColor();
 
-            // Admin choose which of the currency should be updated
+            // Admin chooses which of the currency should be updated
             while (true)
             {
                 Console.WriteLine("\nEnter the number of the exchange rate you want to update:");
                 if (int.TryParse(Console.ReadLine(), out selectedRate))
                 {
-                    if (selectedRate >= 1 && selectedRate <= 12) // If admin is inside the range from 1-12
+                    if (selectedRate >= 1 && selectedRate <= 12) // If admin choice is inside the range from 1-12
                     {
                         break;
                     }
@@ -185,7 +185,7 @@
                 }
             }
         }
-        public void ShowExchangeRate(Administrator administrator) //Method to show the updated exchange rate, only admin have acsess to this method
+        public void ShowExchangeRate(Administrator administrator) //Method to show the updated exchange rate, only admin have access to this method
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
