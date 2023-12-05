@@ -1,9 +1,9 @@
 ﻿namespace BankSystem
 {
-    internal class Administrator : Person, IPrintMenu // Administrator class that inheritense from Person and IPrintMenu
+    internal class Administrator : Person, IPrintMenu // Administrator class inherits from Person and IPrintMenu
     {
         public LoginManager loginManager;
-        public Administrator(LoginManager loginManager, string username, string password, string userRole, int id) //Constructor for Administrator class base from Person
+        public Administrator(LoginManager loginManager, string username, string password, string userRole, int id) //Constructor for Administrator class base from Person class
             : base(username, password, userRole, id)
         {
             this.loginManager = loginManager;
@@ -17,7 +17,7 @@
         }
         public bool IsValidCharacters(string input)// Checks if admin creates a username or password with special characters
         {
-            //Creating a array with chars
+            //Creating an array with chars
             char[] invalidCharacters = { '!', '"', '#', '%', '&', '/', '(', ')', '=', '?', '@', '$', '{', '[', ']', '}', '-', '_', '*', '|' };
 
             foreach (char c in input)
@@ -184,8 +184,7 @@
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
  ");
         }
-        private string[] menuOptions = {"[1]Open new account\t\t", "[2]Remove account\t\t",
-        "[3]Show all accounts\t\t","[4]Update exchange rate\t\t","[5]Show exchange rate\t\t","[6]Sign out\t\t", "[7]End\t\t" };
+        private string[] menuOptions = {"[1]Open new account\t\t", "[2]Remove account\t\t", "[3]Show all accounts\t\t","[4]Update exchange rate\t\t","[5]Show exchange rate\t\t","[6]Sign out\t\t", "[7]End\t\t" };
         private int menuSelected = 0;
         public override void RunMenu()
         {
@@ -263,7 +262,7 @@
                         case 6:
                             Console.Clear();
                             Console.WriteLine("");
-                            Console.WriteLine("Thanks for using CodeCats awesome bank!");
+                            Console.WriteLine("Thank you for using CodeCats awesome bank!");
                             Environment.Exit(0);
                             break;
                         default:

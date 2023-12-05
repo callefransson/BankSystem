@@ -18,14 +18,11 @@ namespace BankSystem
         {
             this.loginManager = loginManager;
         }
-        //menu options, (how it will look)
-        private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t",
-        "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t",
-        "[6]Sign out\t\t", "[7]End\t\t" };
+        //menu options, (what it will look like)
+        private string[] menuOptions = {"[1]Show Bank account\t\t", "[2]Borrow money\t\t", "[3]Open new account\t\t", "[4]Transfer to second account\t\t", "[5]Transfer to user\t\t", "[6]Sign out\t\t", "[7]End\t\t" };
         private int menuSelected = 0; // set value to 0
 
         public decimal Balance { get; set; }
-        public int CreditScore { get; set; } // are we still going to use?
         public string BankAccount { get; set; }
          
 
@@ -554,9 +551,9 @@ namespace BankSystem
                 }
                 else if (userInput == 2) // if user type 2 and enter:
                 {
-                    User b1 = new User("JaneDoe", "********", "User", 0);
+                    User b1 = new User("User", "********", "User", 0);
                     {
-                        b1.Username = "JaneDoe";  // username
+                        b1.Username = "User";  // username
                         Console.WriteLine("");
                         Console.Write("Write the name of the new bank account: ");
                         b1.BankAccount = Console.ReadLine(); // userinput for account name
